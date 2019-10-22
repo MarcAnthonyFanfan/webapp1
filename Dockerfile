@@ -17,8 +17,10 @@ RUN . env/bin/activate
 
 EXPOSE 5000
 
+RUN chmod +x ./start.sh
+
 ENV FLASK_APP=webapp1
 
 ENV FLASK_ENV=development
 
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["bash", "-c", "./start.sh"]

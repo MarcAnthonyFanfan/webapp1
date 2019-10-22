@@ -3,4 +3,4 @@
 cd /webapp1
 git reset --hard HEAD
 git pull
-python3 app.py
+flask run --host 0.0.0.0
