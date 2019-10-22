@@ -11,14 +11,10 @@ RUN git clone https://github.com/MarcAnthonyFanfan/webapp1
 
 WORKDIR "/webapp1"
 
-RUN git reset --hard HEAD
-
-RUN git pull
-
 RUN python3 -m venv env
 
 RUN . env/bin/activate
 
 EXPOSE 5000
 
-CMD ["bash"]
+CMD ["/webapp1/start.sh"]
