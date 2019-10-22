@@ -1,0 +1,20 @@
+---
+- hosts: dev
+  become: yes
+  tasks:
+
+  - name: Install mysql-server
+    apt: name=mysql-server state=latest
+  
+  - name: Start mysql-server service
+    service:
+      name: mysql
+      state: started
+      enabled: true
+  
+  - name: Run webapp1 Docker container
+    command: docker run -itd --name webapp1 ubuntu bash
+    register: docker_result
+    changed_when: "'already in use' not in docker_result.stderr"
+    failed_when: False
+    ignore_errors: True

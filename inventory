@@ -1,0 +1,13 @@
+[all]
+u1910-dev     ansible_host=u1910-dev
+u1910-prod    ansible_host=u1910-prod
+
+[dev]
+u1910-dev
+
+[prod]
+u1910-prod
+
+[all:vars]
+ansible_user=mfanx2
+ansible_python_interpreter=/usr/bin/python3
