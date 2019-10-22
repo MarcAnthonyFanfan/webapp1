@@ -17,9 +17,15 @@
     register: build_result
     changed_when: False
     failed_when: "'Successfully tagged flaskapp:latest' not in build_result.stdout"
+  
+  - name: Stop webapp1 Docker container if already running
+    command: docker stop webapp1
+    register: stop_result
+    changed_when: "'No such container' not in stop_result.stderr"
+    failed_when: False
     
   - name: Run webapp1 Docker container
-    command: docker run -itd --name webapp1 --network host flaskapp
+    command: docker run --rm -itd --name webapp1 --network host flaskapp
     register: run_result
     changed_when: "'already in use' not in run_result.stderr"
     failed_when: False
