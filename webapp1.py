@@ -1,4 +1,5 @@
 import os
+import sys
 
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
@@ -44,8 +45,10 @@ def create_app(test_config=None):
             cur = mysql.connection.cursor()
             try:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-            except mysql.connector.IntegrityError as err:
-                return err
+            except:
+                return sys.exc_info()[0]
+            #except mysql.connector.IntegrityError as err:
+            #    return err
             mysql.connection.commit()
             cur.close()
             return 'success'
