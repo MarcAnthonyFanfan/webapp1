@@ -46,7 +46,8 @@ def create_app(test_config=None):
             try:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
             except:
-                return sys.exc_info()[0]
+                print("Unexpected error:", sys.exc_info()[0])
+                raise
             mysql.connection.commit()
             cur.close()
             return 'success'
