@@ -78,6 +78,22 @@ def create_app(test_config=None):
 
     @app.route('/log_in', methods=['GET', 'POST'])
     def log_in():
-        return "TO DO: log_in page"
+        if request.method == "GET":
+            return render_template('log_in.html')
+        else:
+            details = request.form
+            username = details['username']
+            password = details['password']
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT * FROM users WHERE username=%s AND password=", [username, password])
+            mysql.connection.commit()
+            if cur.rowcount == 0:
+                response = make_response(redirect('/log_in'))
+                flash("Incorrect username/password combination")
+            else:
+                response = make_response(redirect('/dashboard'))
+                response.set_cookie('username', username)
+            cur.close()
+            return response
 
     return app
