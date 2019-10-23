@@ -40,9 +40,7 @@ def create_app(test_config=None):
     @app.route('/', methods=['GET'])
     def index():
         if 'username' in request.cookies:
-            user_cookie = request.cookies.get('username')
             response = make_response(redirect('/dashboard'))
-            flash("Welcome " + user_cookie)
             return response
         else:
             return render_template('index.html')
@@ -50,6 +48,7 @@ def create_app(test_config=None):
     @app.route('/dashboard', methods=['GET'])
     def dashboard():
         if 'username' in request.cookies:
+            user_cookie = request.cookies.get('username')
             return render_template('dashboard.html')
         else:
             response = make_response(redirect('/'))
@@ -68,7 +67,6 @@ def create_app(test_config=None):
             cur.execute("SELECT * FROM users WHERE username=%s", [username])
             if cur.rowcount == 0:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-                flash("You were successfully logged in")
                 response = make_response(redirect('/dashboard'))
                 response.set_cookie('username', username)
             else:
