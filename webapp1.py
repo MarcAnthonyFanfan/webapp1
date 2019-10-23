@@ -85,7 +85,7 @@ def create_app(test_config=None):
             username = details['username']
             password = details['password']
             cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM users WHERE username=%s AND password=", [username, password])
+            cur.execute("SELECT * FROM users WHERE username=%s AND password=%s", [username, password])
             mysql.connection.commit()
             if cur.rowcount == 0:
                 response = make_response(redirect('/log_in'))
