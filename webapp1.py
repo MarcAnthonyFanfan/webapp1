@@ -43,7 +43,8 @@ def create_app(test_config=None):
             user_cookie = request.cookies.get('username')
             return "Hello " + user_cookie
         else:
-            redirect('/sign_up')
+            response = make_response(redirect('/sign_up'))
+            return response
 
     @app.route('/sign_up', methods=['GET', 'POST'])
     def sign_up():
