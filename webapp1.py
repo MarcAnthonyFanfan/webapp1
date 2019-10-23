@@ -62,11 +62,11 @@ def create_app(test_config=None):
             details = request.form
             username = details['username']
             password = details['password']
-            cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM users WHERE username=%s", [username])
-            if cur.rowcount == 0:
-                cur = mysql.connection.cursor()
-                cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
+            cur1 = mysql.connection.cursor()
+            cur1.execute("SELECT * FROM users WHERE username=%s", [username])
+            if cur1.rowcount == 0:
+                cur2 = mysql.connection.cursor()
+                cur2.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
                 response = make_response(redirect('/dashboard'))
                 response.set_cookie('username', username)
             else:
