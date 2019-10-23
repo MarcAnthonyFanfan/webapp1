@@ -7,7 +7,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config['MYSQL_HOST'] = '127.0.0.1'
-    app.config['MYSQL_USER'] = 'root'
+    app.config['MYSQL_USER'] = 'flask'
     app.config['MYSQL_PASSWORD'] = ''
     app.config['MYSQL_DB'] = 'flaskapp'
     mysql = MySQL(app)
