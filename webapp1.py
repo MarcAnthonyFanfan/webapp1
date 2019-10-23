@@ -41,9 +41,19 @@ def create_app(test_config=None):
     def index():
         if 'username' in request.cookies:
             user_cookie = request.cookies.get('username')
-            return "Hello " + user_cookie
+            response = make_response(redirect('/dashboard'))
+            flash("Welcome " + user_cookie)
+            return response
         else:
-            response = make_response(redirect('/sign_up'))
+            return render_template('index.html')
+
+    @app.route('/dashboard', methods=['GET'])
+    def dashboard():
+        if 'username' in request.cookies:
+            return render_template('daskboard.html')
+        else:
+            response = make_response(redirect('/'))
+            flash("You must be logged in to view the Dashboard")
             return response
 
     @app.route('/sign_up', methods=['GET', 'POST'])
@@ -58,13 +68,16 @@ def create_app(test_config=None):
             cur.execute("SELECT * FROM users WHERE username=%s", [username])
             if cur.rowcount == 0:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-                msg = "You were successfully logged in"
-                response = make_response(redirect('/'))
+                flash("You were successfully logged in")
+                response = make_response(redirect('/dashboard'))
                 response.set_cookie('username', username)
             else:
                 response = make_response(redirect('/sign_up'))
-                msg = "Username already exists"
-            flash(msg)
+                flash("Username already exists")
             return response
+
+    @app.route('/log_in', methods=['GET', 'POST'])
+    def log_in():
+        return "TO DO: log_in page"
 
     return app

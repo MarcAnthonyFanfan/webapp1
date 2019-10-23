@@ -1,0 +1,12 @@
+<HTML>
+    <BODY bgcolor="cyan">
+        <center>
+            <div class="flashes">
+                {% for message in get_flashed_messages()%}
+                    {{ message|safe }}
+                {% endfor %}
+            </div>
+            <H1>Dashboard</H1> <br>
+        </center>
+    </BODY>
+</HTML>

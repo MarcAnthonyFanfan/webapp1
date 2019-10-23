@@ -1,0 +1,16 @@
+<HTML>
+    <BODY bgcolor="cyan">
+        <center>
+            <div class="flashes">
+                {% for message in get_flashed_messages()%}
+                    {{ message|safe }}
+                {% endfor %}
+            </div>
+            <H1>Welcome to My Flask App</H1> <br>
+            <H2>New Users...</H2>
+            <p>Click <a href="/sign_up">here</a> to sign up.</p>
+            <H2>Existing Users...</H2>
+            <p>Click <a href="/log_in">here</a> to log in.</p>
+        </center>
+    </BODY>
+</HTML>
