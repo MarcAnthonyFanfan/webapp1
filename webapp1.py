@@ -41,9 +41,9 @@ def create_app(test_config=None):
     def index():
         if 'username' in request.cookies:
             response = make_response(redirect('/dashboard'))
-            return response
         else:
-            return render_template('index.html')
+            response = make_response(redirect('/log_in'))
+        return response
 
     @app.route('/dashboard', methods=['GET'])
     def dashboard():
