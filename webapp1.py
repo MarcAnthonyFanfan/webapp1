@@ -47,6 +47,6 @@ def create_app(test_config=None):
             mysql.connection.commit()
             cur.close()
             return 'success'
-        return render_template('templates/index.html')
+        return render_template('index.html')
 
     return app
