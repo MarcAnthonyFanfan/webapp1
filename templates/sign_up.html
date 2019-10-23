@@ -1,17 +1,27 @@
-<HTML>
-    <BODY bgcolor="cyan">
-        <form method="POST" action="">
-            <center>
+<html>
+    <head>
+        <title>Log in to webapp1</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/styles.css') }}">
+    </head>
+    <body>
+        <form method="post" action="">
+            <h1>New Users</h1>
+            <h2>Please Sign Up</h2>
+            <div class="imgcontainer">
+                <img src="/static/avatar.png" alt="Avatar" class="avatar">
+            </div>
+            <div class="container">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
                 <div class="flashes">
                     {% for message in get_flashed_messages()%}
                         {{ message|safe }}
                     {% endfor %}
                 </div>
-                <H1>Sign Up</H1> <br>
-                Username: <input type="text" placeholder="Username" name="username" /> <br>
-                Password: <input type="password" placeholder="Password" name="password" /> <br>
-                <input type = "submit"/>
-            </center>
+                <button type="submit">Submit</button>
+            </div>
         </form>
-    </BODY>
-</HTML>
+    </body>
+</html>
