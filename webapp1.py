@@ -46,8 +46,9 @@ def create_app(test_config=None):
             try:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
             except:
-                print("Unexpected error:", sys.exc_info()[0])
-                raise
+                error_str = sys.exc_info()[0]
+                if ("Duplicate entry" in error_str) and ("for key 'username'" in error_str):
+                    return "Username already exists"
             mysql.connection.commit()
             cur.close()
             return 'success'
