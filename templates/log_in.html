@@ -1,17 +1,19 @@
 <HTML>
     <BODY bgcolor="cyan">
         <form method="POST" action="">
-            <center>
+            <div style="text-align:center; border: 1px solid black; height: 200px; width: 200px;">
+                <H1>Log In</H1> <br>
                 <div class="flashes">
                     {% for message in get_flashed_messages()%}
                         {{ message|safe }}
                     {% endfor %}
                 </div>
-                <H1>Log In</H1> <br>
-                Username: <input type="text" placeholder="Username" name="username" /> <br>
-                Password: <input type="password" placeholder="Password" name="password" /> <br>
-                <input type = "submit"/>
-            </center>
+                <div style="text-align:right;">
+                    Username: <input type="text" placeholder="Username" name="username" /> <br>
+                    Password: <input type="password" placeholder="Password" name="password" /> <br>
+                    <input type = "submit"/>
+                </div>>
+            </div>
         </form>
     </BODY>
 </HTML>
