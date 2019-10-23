@@ -1,7 +1,7 @@
 import os
 import sys
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_mysqldb import MySQL
 
 def create_app(test_config=None):
@@ -46,10 +46,11 @@ def create_app(test_config=None):
             cur.execute("SELECT * FROM users WHERE username=%s", [username])
             if cur.rowcount == 0:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-                ret_val = "Success"
+                msg = "You were successfully logged in"
             else:
-                ret_val = "Username already exists"
-            return ret_val
+                msg = "Username already exists"
+            flash(msg)
+            return redirect(url_for('index'))
         return render_template('index.html')
 
     return app
