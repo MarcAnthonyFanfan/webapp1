@@ -45,9 +45,8 @@ def create_app(test_config=None):
             cur = mysql.connection.cursor()
             try:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-            except:
-                print("Unexpected error:", sys.exc_info()[0])
-                raise
+            except MySQLdb._exceptions.IntegrityError as err:
+                return err
             mysql.connection.commit()
             cur.close()
             return 'success'
