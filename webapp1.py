@@ -43,15 +43,13 @@ def create_app(test_config=None):
             username = details['username']
             password = details['password']
             cur = mysql.connection.cursor()
-            try:
+            cur.execute("SELECT * FROM users WHERE username=%s", username)
+            if cur.rowcount == 0:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-            except:
-                error_str = sys.exc_info()[0]
-                if ("Duplicate entry" in error_str) and ("for key 'username'" in error_str):
-                    return "Username already exists"
-            mysql.connection.commit()
-            cur.close()
-            return 'success'
+                ret_val = "Success"
+            else:
+                ret_val = "Username already exists"
+            return ret_val
         return render_template('index.html')
 
     return app
