@@ -1,19 +1,24 @@
-<HTML>
-    <BODY bgcolor="cyan">
+<html>
+    <body>
         <form method="POST" action="">
-            <div style="text-align:center; border: 1px solid black; height: 200px; width: 200px;">
-                <H1>Log In</H1> <br>
-                <div class="flashes">
-                    {% for message in get_flashed_messages()%}
-                        {{ message|safe }}
-                    {% endfor %}
-                </div>
-                <div style="text-align:right;">
-                    Username: <input type="text" placeholder="Username" name="username" /> <br>
-                    Password: <input type="password" placeholder="Password" name="password" /> <br>
-                    <input type = "submit"/>
-                </div>>
+            <H1>Log In</H1> <br>
+            <div class="flashes">
+                {% for message in get_flashed_messages()%}
+                    {{ message|safe }}
+                {% endfor %}
+            </div>
+            <div class="imgcontainer">
+                <img src="avatar.png" alt="Avatar" class="avatar">
+            </div>
+            <div class="container">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+            
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+            
+                <button type="submit">Login</button>
             </div>
         </form>
-    </BODY>
-</HTML>
+    </body>
+</html>
