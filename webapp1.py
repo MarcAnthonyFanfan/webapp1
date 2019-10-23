@@ -48,7 +48,6 @@ def create_app(test_config=None):
     @app.route('/dashboard', methods=['GET'])
     def dashboard():
         if 'username' in request.cookies:
-            user_cookie = request.cookies.get('username')
             return render_template('dashboard.html')
         else:
             response = make_response(redirect('/'))
