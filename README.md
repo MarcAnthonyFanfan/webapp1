@@ -6,3 +6,5 @@ Build simple web application that performs the following (all user data will be 
 2. Allow a user to create a username/password
 3. Allow user to login to web application
 4. Create a password protected page that allows a user to request a network account, the request should be visible to an administrator when they login to the web application
+
+![Badly Drawn Diagram](badly_drawn_diagram.png)
