@@ -42,7 +42,10 @@ def create_app(test_config=None):
             username = details['username']
             password = details['password']
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
+            try:
+                cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
+            except mysql.connector.IntegrityError as err:
+                return err
             mysql.connection.commit()
             cur.close()
             return 'success'
