@@ -65,7 +65,7 @@ def create_app(test_config=None):
             cur = mysql.connection.cursor()
             cur.execute("SELECT * FROM users WHERE username=%s", [username])
             mysql.connection.commit()
-            if cur1.rowcount == 0:
+            if cur.rowcount == 0:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
                 mysql.connection.commit()
                 response = make_response(redirect('/dashboard'))
