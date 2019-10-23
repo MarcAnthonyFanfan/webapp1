@@ -11,6 +11,7 @@ def create_app(test_config=None):
     app.config['MYSQL_USER'] = 'flask'
     app.config['MYSQL_PASSWORD'] = ''
     app.config['MYSQL_DB'] = 'flaskapp'
+    app.secret_key = 'dev'
     mysql = MySQL(app)
 
     #app.config.from_mapping(
