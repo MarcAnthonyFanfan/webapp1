@@ -9,7 +9,7 @@ def create_app(test_config=None):
     app.config['MYSQL_HOST'] = 'localhost'
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = ''
-    app.config['MYSQL_DB'] = 'mysql'
+    app.config['MYSQL_DB'] = 'flaskapp'
     mysql = MySQL(app)
 
     #app.config.from_mapping(
@@ -39,11 +39,10 @@ def create_app(test_config=None):
     def index():
         if request.method == "POST":
             details = request.form
-            firstName = details['fname']
-            lastName = details['lname']
+            username = details['username']
+            password = details['password']
             cur = mysql.connection.cursor()
-            #cur.execute("INSERT INTO MyUsers(firstName, lastName) VALUES (%s, %s)", (firstName, lastName))
-            cur.execute("SHOW DATABASES")
+            cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
             mysql.connection.commit()
             cur.close()
             return 'success'
