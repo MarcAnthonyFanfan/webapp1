@@ -37,9 +37,19 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    @app.route('/', methods=['GET', 'POST'])
+    @app.route('/', methods=['GET'])
     def index():
-        if request.method == "POST":
+        if 'username' in request.cookies:
+            user_cookie = request.cookies.get('username')
+            return "Hello " + user_cookie
+        else:
+            redirect('/sign_up')
+
+    @app.route('/sign_up', methods=['GET', 'POST'])
+    def sign_up():
+        if request.method == "GET":
+            return render_template('sign_up.html')
+        else:
             details = request.form
             username = details['username']
             password = details['password']
@@ -48,10 +58,12 @@ def create_app(test_config=None):
             if cur.rowcount == 0:
                 cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
                 msg = "You were successfully logged in"
+                response = make_response(redirect('/'))
+                response.set_cookie('username', username)
             else:
+                response = make_response(redirect('/sign_up'))
                 msg = "Username already exists"
             flash(msg)
-            return redirect(url_for('index'))
-        return render_template('index.html')
+            return response
 
     return app
