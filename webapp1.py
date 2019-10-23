@@ -1,7 +1,7 @@
 import os
 import sys
 
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, make_response
 from flask_mysqldb import MySQL
 
 def create_app(test_config=None):
