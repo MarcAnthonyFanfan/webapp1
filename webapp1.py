@@ -40,7 +40,7 @@ def create_app(test_config=None):
             response = make_response(redirect('/log_in'))
         return response
 
-    @app.route('/dashboard', methods=['GET'])
+    @app.route('/dashboard', methods=['GET', 'POST'])
     def dashboard():
         if 'username' not in request.cookies:
             response = make_response(redirect('/'))
