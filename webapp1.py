@@ -67,7 +67,7 @@ def create_app(test_config=None):
             if password != confirm_password:
                 response = make_response(redirect('/sign_up'))
                 flash("Password and password confirmation do not match")
-            elif agree != 1:
+            elif agree != '1':
                 response = make_response(redirect('/sign_up'))
                 flash("You must agree to the terms and conditions")
             else:
