@@ -1,12 +1,29 @@
-<HTML>
-    <BODY bgcolor="cyan">
-        <center>
+<!DOCTYPE html>
+
+<html> 
+    <head>
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/dashboard.css') }}">
+    </head>
+    <body>
+        <header>
+            <h1>{{ request.cookies.get('username') }}'s Dashboard</h1>
+            <ul>
+                <li> <a class="active" href="/"> Dashboard </a> </li>
+                <!-- <li> <a href="/example_link"> example_link </a> </li> -->
+                <li style="float: right"> <a href="/log_out"> Log Out </a> </li>
+            </ul> 
+        </header>
+        <section>
             <div class="flashes">
                 {% for message in get_flashed_messages()%}
                     {{ message|safe }}
                 {% endfor %}
             </div>
-            <H1>{{ request.cookies.get('username') }}'s Dashboard</H1> <br>
-        </center>
-    </BODY>
-</HTML>
+        </section>      
+        <section>
+            <h3> Example Heading </h3>
+            <p> This is an example paragraph.  </p>
+        </section>
+    </body>
+</html>
