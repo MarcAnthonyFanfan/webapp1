@@ -83,7 +83,17 @@ th {
 table, th, td {
     border: 1px solid #adadad;
     border-collapse: collapse;
-} 
+}
+
+form button {
+    color: #adadad;
+    background-color: #68217a;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+}
 
 .alignleft {
 	float: left;
