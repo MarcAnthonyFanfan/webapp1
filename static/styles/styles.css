@@ -1,6 +1,7 @@
-/* Center Everything in body */
+/* Center everything in body and set background color*/
 body {
     text-align: center;
+    background-color: #222;
 }
 
 /* Bordered form */
@@ -8,6 +9,7 @@ form {
     border: 3px solid #f1f1f1;
     max-width: 500px;
     display: inline-block;
+    background-color: #333;
 }
 
 /* Full-width inputs */
@@ -22,7 +24,7 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-    background-color: #4CAF50;
+    background-color: #68217a;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
