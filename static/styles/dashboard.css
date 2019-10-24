@@ -75,7 +75,8 @@ table {
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid #adadad;
+    border-collapse: collapse;
 } 
 
 .alignleft {
