@@ -52,3 +52,11 @@ img.avatar {
     color: red;
     font-weight: bold;
 }
+
+.boxed_link {
+    color: #222;
+    background-color: #adadad;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+}

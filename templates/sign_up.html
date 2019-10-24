@@ -6,7 +6,6 @@
     <body>
         <form method="post" action="">
             <h1>Welcome New User</h1>
-            <p>Existing User? <a href="/log_in">Log In</a></p>
             <div class="imgcontainer">
                 <img src="/static/avatar.png" alt="Avatar" class="avatar">
             </div>
@@ -24,11 +23,9 @@
                     {% endfor %}
                 </div>
                 <button type="submit">Submit</button>
-                <a href="/log_in"> Existing User? </a>
             </div>
-            <div>
-                Icon by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-            </div>
+            <p class="boxed_link">Existing User? <a href="/log_in">Log In</a></p>
+            <p class="boxed_link">Icon by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
         </form>
     </body>
 </html>
