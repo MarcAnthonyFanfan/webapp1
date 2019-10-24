@@ -54,7 +54,7 @@ def create_app(test_config=None):
         requests = cur.fetchall()
         if request.method == "GET":
             cur.close()
-            return render_template('dashboard.html')
+            return render_template('dashboard.html', requests=requests)
         else:
             details = request.form
             network_request = details['network_request']
