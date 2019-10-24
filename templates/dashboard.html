@@ -15,7 +15,7 @@
             </ul> 
         </header>
         <section>
-            <h3> Requests </h3>
+            <h3>Requests</h3>
             <p>
             {% if requests %}
                 <table>
@@ -37,6 +37,12 @@
             {% else %}
                 No requests yet.
             {% endif %}
+            </p>
+            <p>
+                <form method="post" action="">
+                    <input type="checkbox" name="network_request" value="1" required>Request a network account<br>
+                    <button type="submit">Submit</button>
+                </form>
             </p>
         </section>
     </body>
