@@ -42,11 +42,29 @@ def create_app(test_config=None):
 
     @app.route('/dashboard', methods=['GET'])
     def dashboard():
-        if 'username' in request.cookies:
-            return render_template('dashboard.html')
-        else:
+        if 'username' not in request.cookies:
             response = make_response(redirect('/'))
             return response
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users WHERE username=%s", [request.cookies.get('username')])
+        mysql.connection.commit()
+        user_id = cur.fetchall()[0][0]
+        cur.execute("SELECT * FROM requests")
+        mysql.connection.commit()
+        requests = cur.fetchall()
+        if request.method == "GET":
+            cur.close()
+            return render_template('dashboard.html')
+        else:
+            details = request.form
+            network_request = details['network_request']
+            if network_request == '1':
+                cur.execute("INSERT INTO requests(user_id, type) VALUES (%s, %s)", (user_id, "Network"))
+                mysql.connection.commit()
+                cur.close()
+                response = make_response(redirect('/dashboard'))
+                return response
+
 
     @app.route('/sign_up', methods=['GET', 'POST'])
     def sign_up():
