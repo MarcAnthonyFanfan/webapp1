@@ -5,7 +5,6 @@ body {
 }
 
 form {
-    border: 3px solid #f1f1f1;
     max-width: 500px;
     display: inline-block;
     background-color: #333;
@@ -21,6 +20,7 @@ input[type=text], input[type=password] {
 }
 
 button {
+    color: #adadad;
     background-color: #68217a;
     padding: 14px 20px;
     margin: 8px 0;
