@@ -5,6 +5,11 @@ html {
     font-family: 'Courier New', Courier, monospace;
 }
 
+body {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
 /* Header */
 
 header h1 {
