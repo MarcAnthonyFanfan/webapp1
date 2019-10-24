@@ -18,7 +18,7 @@
             <h3>Requests</h3>
             <p>
             {% if requests %}
-                <table>
+                <table border=1>
                     <tr>
                         <th>Requester Username</th>
                         <th>Request Type</th>
@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ request[0] }}</td>
                             <td>{{ request[1] }}</td>
-                            <td>{{ request[2] }}</td>
+                            <td>{{ "Approved" if request[2]==True else "Awaiting Approval" }}</td>
                         </tr>
                     {% endfor %}
                 </table>
