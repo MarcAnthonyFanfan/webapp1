@@ -74,6 +74,10 @@ table {
     width: 100%;
 }
 
+th {
+    text-align: left;
+}
+
 table, th, td {
     border: 1px solid #adadad;
     border-collapse: collapse;
