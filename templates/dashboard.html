@@ -9,21 +9,14 @@
         <header>
             <h1>{{ request.cookies.get('username') }}'s Dashboard</h1>
             <ul>
-                <li> <a class="active" href="/"> Dashboard </a> </li>
-                <!-- <li> <a href="/example_link"> example_link </a> </li> -->
-                <li style="float: right"> <a href="/log_out"> Log Out </a> </li>
+                <li><a class="active" href="/">Dashboard</a></li>
+                <!-- <li><a href="/example_link">example_link</a></li> -->
+                <li style="float: right"><a href="/log_out">Log Out</a></li>
             </ul> 
-        </header>
+        </header>     
         <section>
-            <div class="flashes">
-                {% for message in get_flashed_messages()%}
-                    {{ message|safe }}
-                {% endfor %}
-            </div>
-        </section>      
-        <section>
-            <h3> Example Heading </h3>
-            <p> This is an example paragraph.  </p>
+            <h3>Example Heading</h3>
+            <p>This is an example paragraph.</p>
         </section>
     </body>
 </html>

@@ -46,7 +46,6 @@ def create_app(test_config=None):
             return render_template('dashboard.html')
         else:
             response = make_response(redirect('/'))
-            flash("You must be logged in to view the Dashboard")
             return response
 
     @app.route('/sign_up', methods=['GET', 'POST'])
@@ -99,5 +98,11 @@ def create_app(test_config=None):
                 response.set_cookie('username', username)
             cur.close()
             return response
+    
+    @app.route('/log_out', methods=['GET'])
+    def log_out():
+        response = make_response(redirect('/dashboard'))
+        response.set_cookie('username', '', expires=0)
+        return response
 
     return app
