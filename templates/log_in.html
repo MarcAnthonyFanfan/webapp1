@@ -5,8 +5,8 @@
     </head>
     <body>
         <form method="post" action="">
-            <h1>Existing Users</h1>
-            <h2>Please Log In</h2>
+            <h1>Welcome Existing User</h1>
+            <p>New User? <a href="/sign_up">Sign Up</a></p>
             <div class="imgcontainer">
                 <img src="/static/avatar.png" alt="Avatar" class="avatar">
             </div>
@@ -21,9 +21,10 @@
                     {% endfor %}
                 </div>
                 <button type="submit">Submit</button>
-                <a href="/sign_up"> New User? </a>
             </div>
-            <div>Icon by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+            <div>
+                Icon by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+            </div>
         </form>
     </body>
 </html>
