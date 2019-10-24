@@ -27,10 +27,10 @@
                     </tr>
                     {% for request in requests %}
                         <tr>
-                            <td>{{ request.id }}</td>
-                            <td>{{ request.user_id }}</td>
-                            <td>{{ request.type }}</td>
-                            <td>{{ request.approved }}</td>
+                            <td>{{ request[0] }}</td>
+                            <td>{{ request[1] }}</td>
+                            <td>{{ request[2] }}</td>
+                            <td>{{ request[3] }}</td>
                         </tr>
                     {% endfor %}
                 </table>
