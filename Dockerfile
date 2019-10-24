@@ -22,5 +22,3 @@ RUN chmod +x ./start.sh
 ENV FLASK_APP=webapp1
 
 ENV FLASK_ENV=development
-
-CMD ["bash", "-c", "./start.sh"]
