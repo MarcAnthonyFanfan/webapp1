@@ -3,4 +3,4 @@
 cd /webapp1
 git reset --hard HEAD
 git pull
-flask run --host 0.0.0.0
+flask run --cert=adhoc --host 0.0.0.0
