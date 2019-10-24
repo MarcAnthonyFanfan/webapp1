@@ -62,18 +62,27 @@ def create_app(test_config=None):
             details = request.form
             username = details['username']
             password = details['password']
-            cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM users WHERE username=%s", [username])
-            mysql.connection.commit()
-            if cur.rowcount == 0:
-                cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
-                mysql.connection.commit()
-                response = make_response(redirect('/dashboard'))
-                response.set_cookie('username', username)
-            else:
+            confirm_password = details['confirm_password']
+            agree = details['agree']
+            if password != confirm_password:
                 response = make_response(redirect('/sign_up'))
-                flash("Username already exists")
-            cur.close()
+                flash("Password and password confirmation do not match")
+            elif agree != 1:
+                response = make_response(redirect('/sign_up'))
+                flash("You must agree to the terms and conditions")
+            else:
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT * FROM users WHERE username=%s", [username])
+                mysql.connection.commit()
+                if cur.rowcount == 0:
+                    cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
+                    mysql.connection.commit()
+                    response = make_response(redirect('/dashboard'))
+                    response.set_cookie('username', username)
+                else:
+                    response = make_response(redirect('/sign_up'))
+                    flash("Username already exists")
+                cur.close()
             return response
 
     @app.route('/log_in', methods=['GET', 'POST'])
