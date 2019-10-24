@@ -20,17 +20,15 @@
             {% if requests %}
                 <table>
                     <tr>
-                        <th>id</th>
-                        <th>user_id</th>
-                        <th>type</th>
-                        <th>approved</th>
+                        <th>Requester Username</th>
+                        <th>Request Type</th>
+                        <th>Approval Status</th>
                     </tr>
                     {% for request in requests %}
                         <tr>
                             <td>{{ request[0] }}</td>
                             <td>{{ request[1] }}</td>
                             <td>{{ request[2] }}</td>
-                            <td>{{ request[3] }}</td>
                         </tr>
                     {% endfor %}
                 </table>
