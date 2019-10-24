@@ -1,6 +1,7 @@
-/* Center everything in body and set background color*/
+/* Center everything in body and set default colors */
 body {
     text-align: center;
+    color: #adadad;
     background-color: #222;
 }
 
@@ -25,7 +26,6 @@ input[type=text], input[type=password] {
 /* Set a style for all buttons */
 button {
     background-color: #68217a;
-    color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -59,4 +59,5 @@ img.avatar {
 /* Make flashes red */
 .flashes {
     color: red;
+    font-weight: bold;
 }
