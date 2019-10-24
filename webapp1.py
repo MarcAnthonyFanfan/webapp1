@@ -1,5 +1,6 @@
 import os
 import sys
+import hashlib
 
 from flask import Flask, render_template, request, flash, redirect, url_for, make_response
 from flask_mysqldb import MySQL
@@ -87,7 +88,8 @@ def create_app(test_config=None):
                 cur.execute("SELECT * FROM users WHERE username=%s", [username])
                 mysql.connection.commit()
                 if cur.rowcount == 0:
-                    cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, password))
+                    secure_password = hashlib.sha256(password.encode('utf-8')).hexdigest()[:30]
+                    cur.execute("INSERT INTO users(username, password) VALUES (%s, %s)", (username, secure_password))
                     mysql.connection.commit()
                     response = make_response(redirect('/dashboard'))
                     response.set_cookie('username', username)
@@ -105,8 +107,9 @@ def create_app(test_config=None):
             details = request.form
             username = details['username']
             password = details['password']
+            secure_password = hashlib.sha256(password.encode('utf-8')).hexdigest()[:30]
             cur = mysql.connection.cursor()
-            cur.execute("SELECT * FROM users WHERE username=%s AND password=%s", [username, password])
+            cur.execute("SELECT * FROM users WHERE username=%s AND password=%s", [username, secure_password])
             mysql.connection.commit()
             if cur.rowcount == 0:
                 response = make_response(redirect('/log_in'))
