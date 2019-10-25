@@ -25,7 +25,7 @@
     failed_when: False
 
   - name: Run webapp1 Docker container
-    command: docker run --rm -itd --name webapp1 --network host --log-driver=splunk --log-opt splunk-token=eyJraWQiOiJzcGx1bmsuc2VjcmV0IiwiYWxnIjoiSFM1MTIiLCJ2ZXIiOiJ2MiIsInR0eXAiOiJzdGF0aWMifQ.eyJpc3MiOiJtZmFueDIgZnJvbSBERUxMIiwic3ViIjoibWZhbngyIiwiYXVkIjoiRG9ja2VyIiwiaWRwIjoiU3BsdW5rIiwianRpIjoiMzU4MTJhMmEyMjZmNDM5YTU2NDFjNzMxZTMxZDBhM2E0MDU2MzQxZTkzYzU0NjJjOTNjMTlkMGJjODc4ZjgyNiIsImlhdCI6MTU3MjAxODEwNCwiZXhwIjowLCJuYnIiOjE1NzIwMTgxMDR9.QQp7keROdI7bUiMjQbvmam0AOHgW1zuE9s7TJS0yTbF0420FFqeE-rZ67kRIE1ljDZfOALJUbPqMy5hmGG6h9w --log-opt splunk-url=http://192.168.1.88:8000 flaskapp bash
+    command: docker run --rm -itd --name webapp1 --network host flaskapp bash
     register: run_result
     changed_when: "'already in use' not in run_result.stderr"
     failed_when: False
