@@ -3,6 +3,7 @@
 cd /webapp1
 git reset --hard HEAD
 git pull
+HOSTNAME=$(hostname)
 echo "BEFORE SETTING ENV:"
 echo $FLASK_ENV
 if [ "$HOSTNAME" = "u1910-dev" ]; then
