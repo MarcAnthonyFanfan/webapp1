@@ -16,32 +16,58 @@
         </header>
         <section>
             <h3>Requests</h3>
-            <p>
-            {% if requests %}
-                <table>
-                    <tr>
-                        <th>Requester Username</th>
-                        <th>Request Type</th>
-                        <th>Approval Status</th>
-                    </tr>
-                    {% for request in requests %}
-                        <tr>
-                            <td>{{ request[0] }}</td>
-                            <td>{{ request[1] }}</td>
-                            <td>{{ "Approved" if request[2]==True else "Awaiting Approval" }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
+            {% if user[3]==True %}
+                <p>
+                    {% if requests %}
+                        <form method="post" action=""></form>
+                            <table>
+                                <tr>
+                                    <th>Requester Username</th>
+                                    <th>Request Type</th>
+                                    <th>Approved</th>
+=                                </tr>
+                                {% for request in requests %}
+                                    <tr>
+                                        <td>{{ request[1] }}</td>
+                                        <td>{{ request[2] }}</td>
+                                        <td><input type="checkbox" name="{{ request[0]_approval }}" value="1"></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                            <button type="submit">Submit</button>
+                        </form>
+                    {% else %}
+                        No requests yet.
+                    {% endif %}
+                </p>
             {% else %}
-                No requests yet.
+                <p>
+                {% if requests %}
+                    <table>
+                        <tr>
+                            <th>Requester Username</th>
+                            <th>Request Type</th>
+                            <th>Approval Status</th>
+                        </tr>
+                        {% for request in requests %}
+                            <tr>
+                                <td>{{ request[1] }}</td>
+                                <td>{{ request[2] }}</td>
+                                <td>{{ "Approved" if request[3]==True else "Awaiting Approval" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    No requests yet.
+                {% endif %}
+                </p>
+                <p>
+                    <form method="post" action="">
+                        <input type="checkbox" name="network_request" value="1" required>Request a network account<br>
+                        <button type="submit">Submit</button>
+                    </form>
+                </p>
             {% endif %}
-            </p>
-            <p>
-                <form method="post" action="">
-                    <input type="checkbox" name="network_request" value="1" required>Request a network account<br>
-                    <button type="submit">Submit</button>
-                </form>
-            </p>
         </section>
         <section>
             <h3>Role</h3>

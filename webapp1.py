@@ -32,7 +32,7 @@ def create_app(test_config=None):
         cur.execute("SELECT * FROM users WHERE username=%s", [request.cookies.get('username')])
         mysql.connection.commit()
         user = cur.fetchall()[0]
-        cur.execute("SELECT users.username, requests.type, requests.approved FROM requests INNER JOIN users ON requests.user_id=users.id")
+        cur.execute("SELECT requests.id, users.username, requests.type, requests.approved FROM requests INNER JOIN users ON requests.user_id=users.id")
         mysql.connection.commit()
         requests = cur.fetchall()
         if request.method == "GET":
