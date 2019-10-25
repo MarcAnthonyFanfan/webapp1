@@ -40,6 +40,7 @@ def create_app(test_config=None):
             return render_template('dashboard.html', user=user, requests=requests)
         else:
             details = request.form
+            print(details, file=sys.stderr)
             approved_list = request.form.getlist("approved")
             if user[3]==True:
                 i = 0
