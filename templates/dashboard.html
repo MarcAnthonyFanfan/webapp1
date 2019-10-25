@@ -19,13 +19,13 @@
             {% if user[3]==True %}
                 <p>
                     {% if requests %}
-                        <form method="post" action=""></form>
+                        <form method="post" action="">
                             <table>
                                 <tr>
                                     <th>Requester Username</th>
                                     <th>Request Type</th>
                                     <th>Approved</th>
-=                                </tr>
+                                </tr>
                                 {% for request in requests %}
                                     <tr>
                                         <td>{{ request[1] }}</td>
