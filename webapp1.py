@@ -45,7 +45,7 @@ def create_app(test_config=None):
                 i = 0
                 for approval in approved_list:
                     if approval == '1':
-                        cur.execute("UPDATE requests SET approved='1' where id=%s", [requests[i][0]])
+                        cur.execute("UPDATE requests SET approved='1' where id=%s AND approved='0'", [requests[i][0]])
                         mysql.connection.commit()
                     i += 1
                 response = make_response(redirect('/dashboard'))
