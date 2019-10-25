@@ -31,7 +31,7 @@
                                         <td>{{ request[1] }}</td>
                                         <td>{{ request[2] }}</td>
                                         {% if request[3]==True %}
-                                            <td><input type="checkbox" onclick="return false;" checked></td>
+                                            <td><input type="checkbox" name="approved" value="1" onclick="return false;" checked></td>
                                         {% else %}
                                             <td><input type="hidden" name="approved" value="0"><input type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value"></td>
                                         {% endif %}
