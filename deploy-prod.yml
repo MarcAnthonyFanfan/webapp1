@@ -1,5 +1,5 @@
 ---
-- hosts: dev
+- hosts: prod
   become: yes
   tasks:
 
@@ -38,6 +38,6 @@
     command: docker cp ./certs/key.pem webapp1:/key.pem
 
   - name: Start Flask App
-    shell: "(docker exec webapp1 FLASK_ENV=development /webapp1/start.sh >>flask.log 2>&1 &)"
+    shell: "(docker exec webapp1 /webapp1/start.sh >>flask.log 2>&1 &)"
     async: 10
     poll: 0

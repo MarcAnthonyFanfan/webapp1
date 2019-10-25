@@ -20,5 +20,3 @@ EXPOSE 5000
 RUN chmod +x ./start.sh
 
 ENV FLASK_APP=webapp1
-
-ENV FLASK_ENV=development
