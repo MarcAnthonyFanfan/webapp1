@@ -31,18 +31,18 @@ def create_app(test_config=None):
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE username=%s", [request.cookies.get('username')])
         mysql.connection.commit()
-        user_id = cur.fetchall()[0][0]
+        user = cur.fetchall()[0]
         cur.execute("SELECT users.username, requests.type, requests.approved FROM requests INNER JOIN users ON requests.user_id=users.id")
         mysql.connection.commit()
         requests = cur.fetchall()
         if request.method == "GET":
             cur.close()
-            return render_template('dashboard.html', requests=requests)
+            return render_template('dashboard.html', user=user, requests=requests)
         else:
             details = request.form
             network_request = details['network_request']
             if network_request == '1':
-                cur.execute("INSERT INTO requests(user_id, type) VALUES (%s, %s)", (user_id, "Network"))
+                cur.execute("INSERT INTO requests(user_id, type) VALUES (%s, %s)", (user[0], "Network"))
                 mysql.connection.commit()
                 cur.close()
                 response = make_response(redirect('/dashboard'))

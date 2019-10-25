@@ -7,7 +7,7 @@
     </head>
     <body>
         <header>
-            <h1>{{ request.cookies.get('username') }}'s Dashboard</h1>
+            <h1>{{ user[1] }}'s Dashboard</h1>
             <ul>
                 <li><a class="active" href="/">Dashboard</a></li>
                 <!-- <li><a href="/example_link">example_link</a></li> -->
@@ -43,5 +43,8 @@
                 </form>
             </p>
         </section>
+        <section>
+            <h3>Role</h3>
+            <p>{{ "Admin" if user[3]==True else "User" }}</p>
     </body>
 </html>
