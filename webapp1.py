@@ -41,7 +41,7 @@ def create_app(test_config=None):
         else:
             details = request.form
             if user[3]==True:
-                print(details, file=sys.stderr)
+                print(request.form.getlist("approved"), file=sys.stderr)
                 response = make_response(redirect('/dashboard'))
                 return response
             else:
