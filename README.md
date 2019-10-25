@@ -8,6 +8,7 @@ Useful Links (Only work on my local network)
 - Prod: https://u1910-prod:5000/
 - Jira: http://u1910-jira:8080/
 - Jenkins: http://dell:8080/
+- Splunk: http://dell:8000/
 
 Build simple web application that performs the following (all user data will be stored in SQL):
 1. Provide a password protected web application
