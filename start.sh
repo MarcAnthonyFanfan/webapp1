@@ -4,13 +4,8 @@ cd /webapp1
 git reset --hard HEAD
 git pull
 HOSTNAME=$(hostname)
-echo "BEFORE SETTING ENV:"
-echo $FLASK_ENV
 if [ "$HOSTNAME" = "u1910-dev" ]; then
-    export FLASK_ENV=development
+    FLASK_ENV=development flask run --cert=/cert.pem --key=/key.pem --host 0.0.0.0
 else
-    export FLASK_ENV=production
+    FLASK_ENV=production flask run --cert=/cert.pem --key=/key.pem --host 0.0.0.0
 fi
-echo "AFTER SETTING ENV"
-echo $FLASK_ENV
-flask run --cert=/cert.pem --key=/key.pem --host 0.0.0.0
