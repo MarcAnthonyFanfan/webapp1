@@ -40,13 +40,19 @@ def create_app(test_config=None):
             return render_template('dashboard.html', user=user, requests=requests)
         else:
             details = request.form
-            network_request = details['network_request']
-            if network_request == '1':
-                cur.execute("INSERT INTO requests(user_id, type) VALUES (%s, %s)", (user[0], "Network"))
-                mysql.connection.commit()
-                cur.close()
+            if user[3]==True:
+                print(details['approved'])
+                print(details)
                 response = make_response(redirect('/dashboard'))
                 return response
+            else:
+                network_request = details['network_request']
+                if network_request == '1':
+                    cur.execute("INSERT INTO requests(user_id, type) VALUES (%s, %s)", (user[0], "Network"))
+                    mysql.connection.commit()
+                    cur.close()
+                    response = make_response(redirect('/dashboard'))
+                    return response
 
 
     @app.route('/sign_up', methods=['GET', 'POST'])
