@@ -38,7 +38,7 @@
     command: docker cp ./certs/key.pem webapp1:/key.pem
 
   - name: Set FLASK_ENV variable to development
-    command: FLASK_ENV=development
+    command: docker exec webapp1 bash -c 'FLASK_ENV=development'
 
   - name: Start Flask App
     shell: "(docker exec webapp1 /webapp1/start.sh >>flask.log 2>&1 &)"
