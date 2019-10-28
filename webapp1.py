@@ -145,6 +145,29 @@ def create_app(test_config=None):
                 cur.close()
                 return render_template('reset_password_email.html', user=user, new_password=new_password)
     
+    @app.route('/change_password', methods=['GET', 'POST'])
+    def change_password():
+        if 'username' not in request.cookies:
+            response = make_response(redirect('/'))
+            return response
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users WHERE username=%s", [request.cookies.get('username')])
+        mysql.connection.commit()
+        user = cur.fetchall()[0]
+        if request.method == "GET":
+            cur.close()
+            return render_template('change_password.html', user=user)
+        else:
+            details = request.form
+            new_password = details['new_password']
+            secure_password = hashlib.sha256((user[2].lower()+new_password).encode('utf-8')).hexdigest()[:32]
+            cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_password, user[1], user[2]))
+            mysql.connection.commit()
+            cur.close()
+            response = make_response(redirect('/dashboard'))
+            flash("Your password has been changed")
+            return response
+    
     def new_random_password(length=10):
         alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
         return ''.join((random.choice(alphabet) for i in range(length)))
