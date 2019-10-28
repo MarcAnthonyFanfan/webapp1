@@ -31,7 +31,7 @@ button {
     font-family: 'Courier New', Courier, monospace;
 }
 
-button[type=cancel]{
+button.cancel {
     color: #adadad;
     background-color: #333;
     border: 1px solid;
