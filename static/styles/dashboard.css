@@ -103,6 +103,7 @@ form button {
     border: none;
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
 }
 
 .alignleft {
