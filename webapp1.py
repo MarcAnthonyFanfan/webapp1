@@ -101,7 +101,7 @@ def create_app(test_config=None):
             details = request.form
             username = details['username']
             password = details['password']
-            secure_password = hashlib.sha256(username.lower()+password.encode('utf-8')).hexdigest()[:32]
+            secure_password = hashlib.sha256((username.lower()+password).encode('utf-8')).hexdigest()[:32]
             cur = mysql.connection.cursor()
             cur.execute("SELECT * FROM users WHERE username=%s AND password=%s", [username, secure_password])
             mysql.connection.commit()
