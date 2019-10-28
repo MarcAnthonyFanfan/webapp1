@@ -154,7 +154,13 @@ def create_app(test_config=None):
                 cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_password, email, user[2]))
                 mysql.connection.commit()
                 cur.close()
-                return render_template('reset_password_email.html', user=user, new_password=new_password)
+                print(("Password reset for user: " + user[2] + " temporary password: " + new_password), file=sys.stderr)
+                if os.environ['FLASK_ENV'] == 'development':
+                    return render_template('reset_password_email.html', user=user, new_password=new_password)
+                else:
+                    response = make_response(redirect('/log_in'))
+                    flash("A password reset link has been emailed to: " + email)
+                    return response
     
     @app.route('/change_password', methods=['GET', 'POST'])
     def change_password():
