@@ -14,7 +14,12 @@
                 <!-- <li><a href="/example_link">example_link</a></li> -->
                 <li style="float: right"><a href="/log_out">Log Out</a></li>
                 <li style="float: right"><a href="/change_password">Change Password</a></li>
-            </ul> 
+            </ul>
+            <div class="flashes">
+                {% for message in get_flashed_messages()%}
+                    {{ message|safe }}
+                {% endfor %}
+            </div>
         </header>
         <section>
             <h3>User Account Information</h3>

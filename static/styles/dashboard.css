@@ -102,3 +102,14 @@ form button {
 .alignright {
 	float: right;
 }
+
+.flashes {
+    background-color: #333;
+    color: #adadad;
+    margin-bottom: 5pt;
+    margin-left: 2pt;
+    margin-right: 2pt;
+    margin-top: 5pt;
+    padding: 5pt;
+    text-align: center;
+}
