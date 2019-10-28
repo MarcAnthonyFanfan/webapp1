@@ -167,11 +167,11 @@ def create_app(test_config=None):
             if secure_old_password != user[3]:
                 response = make_response(redirect('/change_password'))
                 flash("Incorrect current password")
-            elif password != confirm_password:
+            elif new_password != confirm_new_password:
                 response = make_response(redirect('/change_password'))
                 flash("New password and new password confirmation do not match")
             else:
-                cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_password, user[1], user[2]))
+                cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_new_password, user[1], user[2]))
                 mysql.connection.commit()
                 response = make_response(redirect('/dashboard'))
                 flash("Your password has been changed")
