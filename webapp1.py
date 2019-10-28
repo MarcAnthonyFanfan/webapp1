@@ -133,7 +133,9 @@ def create_app(test_config=None):
             mysql.connection.commit()
             if cur.rowcount == 0:
                 response = make_response(redirect('/reset_password'))
+                cur.close()
                 flash("No account with such email: " + email)
+                return response
             else:
                 user = cur.fetchall()[0]
                 new_password = new_random_password()
