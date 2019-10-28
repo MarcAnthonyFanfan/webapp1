@@ -16,7 +16,7 @@
         </header>
         <section>
             <h3>Requests</h3>
-            {% if user[3]==True %}
+            {% if user[4]==True %}
                 <p>
                     {% if requests %}
                         <form method="post" action="">
@@ -75,6 +75,6 @@
         </section>
         <section>
             <h3>Role</h3>
-            <p>{{ "Admin" if user[3]==True else "User" }}</p>
+            <p>{{ "Admin" if user[4]==True else "User" }}</p>
     </body>
 </html>
