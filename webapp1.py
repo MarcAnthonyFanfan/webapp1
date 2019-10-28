@@ -83,7 +83,7 @@ def create_app(test_config=None):
                 mysql.connection.commit()
                 if cur.rowcount == 0:
                     secure_password = hashlib.sha256((username.lower()+password).encode('utf-8')).hexdigest()[:32]
-                    cur.execute("INSERT INTO users(email, username, password) VALUES (%s, %s)", (email, username, secure_password))
+                    cur.execute("INSERT INTO users(email, username, password) VALUES (%s, %s, %s)", (email, username, secure_password))
                     mysql.connection.commit()
                     response = make_response(redirect('/dashboard'))
                     response.set_cookie('username', username)
