@@ -31,6 +31,12 @@ button {
     font-family: 'Courier New', Courier, monospace;
 }
 
+button[type=cancel]{
+    color: #68217a;
+    background-color: #333;
+    border: 1px solid;
+}
+
 button:hover {
     opacity: 0.8;
 }
