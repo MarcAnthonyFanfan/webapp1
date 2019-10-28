@@ -24,23 +24,20 @@
             {% endif %}
         </header>
         <section>
-            <h3>User Account Information</h3>
-            <p>
-                <table>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Email Address</th>
-                        <th>Username</th>
-                        <th>User Role</th>
-                    </tr>
-                    <tr>
-                        <td>{{ user[0] }}</td>
-                        <td>{{ user[1] }}</td>
-                        <td>{{ user[2] }}</td>
-                        <td>{{ "Admin" if user[4]==True else "User" }}</td>
-                    </tr>
-                </table>
-            </p>
+            <h1>User ID</h1>
+            <p>{{ user[0] }}</p>
+        </section>
+        <section>
+            <h1>Email Address</h1>
+            <p>{{ user[1] }}</p>
+        </section>
+        <section>
+            <h1>Username</h1>
+            <p>{{ user[2] }}</p>
+        </section>
+        <section>
+            <h1>User Role</h1>
+            <p>{{ "Admin" if user[4]==True else "User" }}</p>
         </section>
     </body>
 </html>
