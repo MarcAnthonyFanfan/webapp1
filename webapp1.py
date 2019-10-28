@@ -42,7 +42,7 @@ def create_app(test_config=None):
             details = request.form
             print(details, file=sys.stderr)
             approved_list = request.form.getlist("approved")
-            if user[3]==True:
+            if user[4]==True:
                 i = 0
                 for approval in approved_list:
                     if approval == '1':
