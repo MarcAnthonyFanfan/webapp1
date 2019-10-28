@@ -140,7 +140,7 @@ def create_app(test_config=None):
                 user = cur.fetchall()[0]
                 new_password = new_random_password()
                 secure_password = hashlib.sha256((user[2].lower()+new_password).encode('utf-8')).hexdigest()[:32]
-                cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s)", (secure_password, email, user[2]))
+                cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_password, email, user[2]))
                 mysql.connection.commit()
                 cur.close()
                 return render_template('reset_password_email.html', user=user, new_password=new_password)
