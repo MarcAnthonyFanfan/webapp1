@@ -159,13 +159,23 @@ def create_app(test_config=None):
             return render_template('change_password.html', user=user)
         else:
             details = request.form
+            old_password = details['old_password']
+            secure_old_password = hashlib.sha256((user[2].lower()+old_password).encode('utf-8')).hexdigest()[:32]
             new_password = details['new_password']
-            secure_password = hashlib.sha256((user[2].lower()+new_password).encode('utf-8')).hexdigest()[:32]
-            cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_password, user[1], user[2]))
-            mysql.connection.commit()
+            confirm_new_password = details['confirm_new_password']
+            secure_new_password = hashlib.sha256((user[2].lower()+new_password).encode('utf-8')).hexdigest()[:32]
+            if secure_old_password != user[3]
+                response = make_response(redirect('/change_password'))
+                flash("Incorrect current password")
+            elif password != confirm_password:
+                response = make_response(redirect('/change_password'))
+                flash("New password and new password confirmation do not match")
+            else:
+                cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_password, user[1], user[2]))
+                mysql.connection.commit()
+                response = make_response(redirect('/dashboard'))
+                flash("Your password has been changed")
             cur.close()
-            response = make_response(redirect('/dashboard'))
-            flash("Your password has been changed")
             return response
     
     def new_random_password(length=10):
