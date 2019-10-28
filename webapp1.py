@@ -164,7 +164,7 @@ def create_app(test_config=None):
             new_password = details['new_password']
             confirm_new_password = details['confirm_new_password']
             secure_new_password = hashlib.sha256((user[2].lower()+new_password).encode('utf-8')).hexdigest()[:32]
-            if secure_old_password != user[3]
+            if secure_old_password != user[3]:
                 response = make_response(redirect('/change_password'))
                 flash("Incorrect current password")
             elif password != confirm_password:
