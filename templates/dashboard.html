@@ -14,11 +14,13 @@
                 <!-- <li><a href="/example_link">example_link</a></li> -->
                 <li style="float: right"><a href="/log_out">Log Out</a></li>
             </ul>
-            <div class="flashes">
-                {% for message in get_flashed_messages()%}
-                    {{ message|safe }}
-                {% endfor %}
-            </div>
+            {% if get_flashed_messages() %}
+                <div class="flashes">
+                    {% for message in get_flashed_messages()%}
+                        {{ message|safe }}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </header>
         <section>
             <h3>Requests</h3>

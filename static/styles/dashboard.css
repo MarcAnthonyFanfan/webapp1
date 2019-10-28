@@ -113,7 +113,3 @@ form button {
     padding: 5pt;
     text-align: center;
 }
-
-div:empty {
-    display: none;
-}
