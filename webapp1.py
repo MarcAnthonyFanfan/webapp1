@@ -70,7 +70,7 @@ def create_app(test_config=None):
         mysql.connection.commit()
         user = cur.fetchall()[0]
         cur.close()
-        return render_template('dashboard.html', user=user)
+        return render_template('profile.html', user=user)
 
     @app.route('/sign_up', methods=['GET', 'POST'])
     def sign_up():
