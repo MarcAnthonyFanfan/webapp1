@@ -21,7 +21,7 @@
                 <label for="confirm_password"><b>Confirm Password</b></label>
                 <input type="password" placeholder="Enter Password Again" name="confirm_password" required>
                 <input type="checkbox" name="agree" value="1" required>I agree to the terms and conditions<br>
-                <div class="flashes">
+                <div id="flashes" >
                     {% for message in get_flashed_messages()%}
                         {{ message|safe }}
                     {% endfor %}

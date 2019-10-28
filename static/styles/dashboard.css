@@ -103,7 +103,7 @@ form button {
 	float: right;
 }
 
-.flashes {
+#flashes {
     background-color: #333;
     color: #adadad;
     margin-bottom: 5pt;
@@ -112,4 +112,5 @@ form button {
     margin-top: 5pt;
     padding: 5pt;
     text-align: center;
+    border: 1px solid;
 }
