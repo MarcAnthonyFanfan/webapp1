@@ -114,6 +114,6 @@ form button {
     text-align: center;
 }
 
-.flashes:empty {
+div:empty {
     display: none;
 }
