@@ -1,6 +1,7 @@
 import os
 import sys
 import hashlib
+import random
 
 from flask import Flask, render_template, request, flash, redirect, url_for, make_response
 from flask_mysqldb import MySQL
@@ -79,7 +80,7 @@ def create_app(test_config=None):
                 flash("You must agree to the terms and conditions")
             else:
                 cur = mysql.connection.cursor()
-                cur.execute("SELECT * FROM users WHERE username=%s", [username])
+                cur.execute("SELECT * FROM users WHERE email=%s AND username=%s", [email, username])
                 mysql.connection.commit()
                 if cur.rowcount == 0:
                     secure_password = hashlib.sha256((username.lower()+password).encode('utf-8')).hexdigest()[:32]
@@ -89,7 +90,7 @@ def create_app(test_config=None):
                     response.set_cookie('username', username)
                 else:
                     response = make_response(redirect('/sign_up'))
-                    flash("Username already exists")
+                    flash("Username or Email already exists")
                 cur.close()
             return response
 
@@ -119,5 +120,31 @@ def create_app(test_config=None):
         response = make_response(redirect('/dashboard'))
         response.set_cookie('username', '', expires=0)
         return response
+
+    @app.route('/reset_password', methods=['GET', 'POST'])
+    def reset_password():
+        if request.method == "GET":
+            return render_template('reset_password.html')
+        else:
+            details = request.form
+            email = details['email']
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT * FROM users WHERE email=%s", [email])
+            mysql.connection.commit()
+            if cur.rowcount == 0:
+                response = make_response(redirect('/reset_password'))
+                flash("No account with such email: " + email)
+            else:
+                user = cur.fetchall()[0]
+                new_password = new_random_password()
+                secure_password = hashlib.sha256((user[2].lower()+new_password).encode('utf-8')).hexdigest()[:32]
+                cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s)", (secure_password, email, user[2]))
+                mysql.connection.commit()
+                cur.close()
+                return render_template('reset_password_email.html', user=user, new_password=new_password)
+    
+    def new_random_password(length=10):
+        alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        return ''.join((random.choice(alphabet) for i in range(length)))
 
     return app
