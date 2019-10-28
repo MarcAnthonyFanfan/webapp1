@@ -60,6 +60,17 @@ def create_app(test_config=None):
             cur.close()
             return response
 
+    @app.route('/profile', methods=['GET'])
+    def profile():
+        if 'username' not in request.cookies:
+            response = make_response(redirect('/'))
+            return response
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users WHERE username=%s", [request.cookies.get('username')])
+        mysql.connection.commit()
+        user = cur.fetchall()[0]
+        cur.close()
+        return render_template('dashboard.html', user=user)
 
     @app.route('/sign_up', methods=['GET', 'POST'])
     def sign_up():
@@ -173,7 +184,7 @@ def create_app(test_config=None):
             else:
                 cur.execute("UPDATE users SET password=%s WHERE email=%s AND username=%s", (secure_new_password, user[1], user[2]))
                 mysql.connection.commit()
-                response = make_response(redirect('/dashboard'))
+                response = make_response(redirect('/profile'))
                 flash("Your password has been changed")
             cur.close()
             return response
