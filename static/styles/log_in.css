@@ -32,7 +32,7 @@ button {
 }
 
 button[type=cancel]{
-    color: #68217a;
+    color: #adadad;
     background-color: #333;
     border: 1px solid;
 }
