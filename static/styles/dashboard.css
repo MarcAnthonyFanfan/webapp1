@@ -113,3 +113,7 @@ form button {
     padding: 5pt;
     text-align: center;
 }
+
+.flashes:empty {
+    display: none;
+}
