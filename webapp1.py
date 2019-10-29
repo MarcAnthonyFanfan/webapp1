@@ -94,7 +94,7 @@ def create_app(test_config=None):
                 flash("You must agree to the terms and conditions")
             else:
                 cur = mysql.connection.cursor()
-                cur.execute("SELECT * FROM users WHERE email=%s AND username=%s", [email, username])
+                cur.execute("SELECT * FROM users WHERE email=%s OR username=%s", [email, username])
                 mysql.connection.commit()
                 if cur.rowcount == 0:
                     secure_password = hashlib.sha256((username.lower()+password).encode('utf-8')).hexdigest()[:32]
