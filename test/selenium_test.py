@@ -41,15 +41,15 @@ def main():
     g_driver.find_element_by_id("confirm_password_input").send_keys(password)
     g_driver.find_element_by_id("agree_to_terms_input").click()
     g_driver.find_element_by_id("submit_button").click()
-    test_strings(g_driver.title, "Dashboard", "Created a new user and was auto logged in")
+    test_strings(g_driver.title, "Dashboard", "Created new user " + username + " and was auto logged in")
     # Test #4: Log out
     g_driver.find_element_by_id("log_out_link").click()
-    test_strings(g_driver.title, "Log In", "Logged out and auto returned to the log_in page")
+    test_strings(g_driver.title, "Log In", "Logged out and was auto returned to the log_in page")
     # Test #5: Log in as test user
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
-    test_strings(g_driver.title, "Dashboard", "Logged in to an existing user")
+    test_strings(g_driver.title, "Dashboard", "Logged in to existing user " + username)
     # Test #6: Go to profile page
     g_driver.find_element_by_id("profile_link").click()
     test_strings(g_driver.title, "Profile", "Reached /profile route")
@@ -95,7 +95,7 @@ def main():
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
     request_approval_boxes = g_driver.find_elements_by_name("approved")
-    test_bools(request_approval_boxes[i].is_selected(), True, "Logged in as admin and approved test network request")
+    test_bools(request_approval_boxes[i].is_selected(), True, "Logged in as test_admin and approved test network request")
     g_driver.find_element_by_id("log_out_link").click()
     # Test #13: Reset password
     g_driver.find_element_by_id("reset_password_link").click()
@@ -107,11 +107,11 @@ def main():
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
-    test_strings(g_driver.title, "Dashboard", "Reset password and logged in")
+    test_strings(g_driver.title, "Dashboard", "Reset password of " + username + " and logged in")
     # Test #14: Delete account and clean up
     g_driver.find_element_by_id("profile_link").click()
     g_driver.find_element_by_id("delete_account_link").click()
-    test_strings(g_driver.title, "Log In", "Deleted test account")
+    test_strings(g_driver.title, "Log In", "Deleted test account " + username)
     g_driver.close()
     print_summary()
     exit(0)
