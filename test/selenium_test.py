@@ -83,7 +83,6 @@ def main():
     g_driver.find_element_by_id("password_input").send_keys(g_admin_password)
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
-    #request_approval_boxes = g_driver.find_elements_by_name("approved")
     request_approval_boxes = g_driver.find_elements_by_css_selector("input[type='checkbox']")
     i = 0
     for e in request_usernames:
@@ -96,20 +95,26 @@ def main():
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
     request_approval_boxes = g_driver.find_elements_by_name("approved")
-    j = 0
-    for e in request_usernames:
-        print("j = " + str(j) + " | " + e.text + " | " + str(request_approval_boxes[i].is_selected()))
-        if e.text == username:
-            break
-        else:
-            j += 1
-    print("j = " + str(j))
     test_bools(request_approval_boxes[i].is_selected(), True, "Logged in as admin and approved test network request")
-    #g_driver.find_element_by_id("log_out_link").click()
-    # Clean up
-    #g_driver.close()
+    g_driver.find_element_by_id("log_out_link").click()
+    # Test #13: Reset password
+    g_driver.find_element_by_id("reset_password_link").click()
+    g_driver.find_element_by_id("email_input").send_keys(email)
+    g_driver.find_element_by_id("submit_button").click()
+    old_password = password
+    password = g_driver.find_element_by_id("new_password").text
+    g_driver.find_element_by_id("log_in_link").click()
+    g_driver.find_element_by_id("username_input").send_keys(username)
+    g_driver.find_element_by_id("password_input").send_keys(password)
+    g_driver.find_element_by_id("submit_button").click()
+    test_strings(g_driver.title, "Dashboard", "Reset password and logged in")
+    # Test #14: Delete account and clean up
+    g_driver.find_element_by_id("profile_link").click()
+    g_driver.find_element_by_id("delete_account_link").click()
+    test_strings(g_driver.title, "Log In", "Deleted test account")
+    g_driver.close()
     print_summary()
-    #exit(0)
+    exit(0)
 
 def test_strings(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
@@ -123,9 +128,9 @@ def test_strings(found, expected, test_details):
         g_failed_tests += 1
         g_summary_details.append([0, test_details])
         print("[" + u'\u2718' + "] " + test_details + "\n\nStopping Execution of Further tests")
-        #g_driver.close()
+        g_driver.close()
         print_summary()
-        #exit(1)
+        exit(1)
 
 def test_bools(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
@@ -139,9 +144,9 @@ def test_bools(found, expected, test_details):
         g_failed_tests += 1
         g_summary_details.append([0, test_details])
         print("[" + u'\u2718' + "] " + test_details + "\n\nStopping Execution of Further tests")
-        #g_driver.close()
+        g_driver.close()
         print_summary()
-        #exit(1)
+        exit(1)
 
 def print_summary():
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details
