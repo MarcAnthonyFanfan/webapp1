@@ -131,6 +131,22 @@ def create_app(test_config=None):
     
     @app.route('/log_out', methods=['GET'])
     def log_out():
+        if 'username' not in request.cookies:
+            response = make_response(redirect('/'))
+            return response
+        response = make_response(redirect('/dashboard'))
+        response.set_cookie('username', '', expires=0)
+        return response
+    
+    @app.route('/delete_account', methods=['GET'])
+    def delete_account():
+        if 'username' not in request.cookies:
+            response = make_response(redirect('/'))
+            return response
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM users WHERE username=%s", [request.cookies.get('username')])
+        mysql.connection.commit()
+        cur.close()
         response = make_response(redirect('/dashboard'))
         response.set_cookie('username', '', expires=0)
         return response
