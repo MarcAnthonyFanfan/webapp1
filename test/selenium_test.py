@@ -139,11 +139,11 @@ def test_bools(found, expected, test_details):
     if found == expected:
         g_passed_tests += 1
         g_summary_details.append([1, test_details])
-        print("[" + u'\u2713' + "] " + test_details)
+        print("[PASS] " + test_details)
     else:
         g_failed_tests += 1
         g_summary_details.append([0, test_details])
-        print("[" + u'\u2718' + "] " + test_details + "\n\nStopping Execution of Further tests")
+        print("[FAIL] " + test_details + "\n\nStopping Execution of Further tests")
         g_driver.close()
         print_summary()
         exit(1)
@@ -153,9 +153,9 @@ def print_summary():
     print("\nRecap:")
     for d in g_summary_details:
         if d[0]:
-            print("[" + u'\u2713' + "] " + d[1])
+            print("[PASS] " + d[1])
         else:
-            print("[" + u'\u2718' + "] " + d[1])
+            print("[FAIL] " + d[1])
     print("\nSummary:\n" + str(g_tests_ran) + "/" + str(g_total_tests) + " tests were ran\n" + str(g_total_tests-g_tests_ran) + "/" + str(g_total_tests) + " tests were skipped\n" + str(g_passed_tests) + "/" + str(g_tests_ran) + " tests that ran passed\n" + str(g_failed_tests) + "/" + str(g_tests_ran) + " tests that ran failed")
     
 
