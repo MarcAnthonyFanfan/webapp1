@@ -13,20 +13,20 @@
             </div>
             <div class="container">
                 <label for="email"><b>Email</b></label>
-                <input type="email" placeholder="Enter Email" name="email" required>
+                <input id="email_input" type="email" placeholder="Enter Email" name="email" required>
                 <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <input id="username_input" type="text" placeholder="Enter Username" name="username" required>
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <input id="password_input" type="password" placeholder="Enter Password" name="password" required>
                 <label for="confirm_password"><b>Confirm Password</b></label>
-                <input type="password" placeholder="Enter Password Again" name="confirm_password" required>
-                <input type="checkbox" name="agree" value="1" required>I agree to the terms and conditions<br>
+                <input id="confirm_password_input" type="password" placeholder="Enter Password Again" name="confirm_password" required>
+                <input id="agree_to_terms_input" type="checkbox" name="agree" value="1" required>I agree to the terms and conditions<br>
                 <div id="flashes" >
                     {% for message in get_flashed_messages()%}
                         {{ message|safe }}
                     {% endfor %}
                 </div>
-                <button type="submit">Sign Up</button>
+                <button id="submit_button" type="submit">Sign Up</button>
                 <p class="boxed_links">
                     Existing User? <a href="/log_in">Log In</a>
                     <br>
