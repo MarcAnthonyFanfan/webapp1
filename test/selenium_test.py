@@ -119,7 +119,7 @@ def main():
 def test_comparison(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
     g_tests_ran += 1
-    print("\nTest #" + str(g_tests_ran) + "\n" + str(type(found)).split("'")[1] + " Found:\t" + str(found) + "\n" + str(type(expected)).split("'")[1] + " Expected:\t" + str(expected))
+    print("\nTest #" + str(g_tests_ran) + "\n" + str(type(found)).split("'")[1].capitalize() + " Found:\t" + str(found) + "\n" + str(type(expected)).split("'")[1].capitalize() + " Expected:\t" + str(expected))
     if found == expected:
         g_passed_tests += 1
         g_summary_details.append([1, test_details])
