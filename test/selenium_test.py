@@ -83,10 +83,13 @@ def main():
     g_driver.find_element_by_id("password_input").send_keys(g_admin_password)
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
-    request_approval_boxes = g_driver.find_elements_by_name("approve")
+    request_approval_boxes = g_driver.find_elements_by_name("approved")
+    print(request_approval_boxes)
     i = 0
     for e in request_usernames:
+        print(e.text + " =? " + username)
         if e.text == username:
+            print("found at: " + str(i))
             request_approval_boxes[i].click()
             break
         else:
@@ -94,7 +97,7 @@ def main():
     test_bools(request_approval_boxes[i].is_selected(), False, "Submitted test network request")
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
-    request_approval_boxes = g_driver.find_elements_by_name("approve")
+    request_approval_boxes = g_driver.find_elements_by_name("approved")
     test_bools(request_approval_boxes[i].is_selected(), True, "Logged in as admin and approved test network request")
     g_driver.find_element_by_id("log_out_link").click()
     # Clean up
