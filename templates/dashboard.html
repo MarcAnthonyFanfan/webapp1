@@ -36,7 +36,7 @@
                                 </tr>
                                 {% for request in requests %}
                                     <tr>
-                                        <td>{{ request[1] }}</td>
+                                        <td name="request_username">{{ request[1] }}</td>
                                         <td>{{ request[2] }}</td>
                                         {% if request[3]==True %}
                                             <td><input type="checkbox" name="approved" value="1" onclick="return false;" checked></td>
@@ -46,7 +46,7 @@
                                     </tr>
                                 {% endfor %}
                             </table>
-                            <button type="submit">Submit</button>
+                            <button id="submit_button" type="submit">Submit</button>
                         </form>
                     {% else %}
                         No requests yet.

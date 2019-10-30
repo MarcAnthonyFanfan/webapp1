@@ -13,8 +13,8 @@ g_profile = webdriver.FirefoxProfile()
 g_profile.accept_untrusted_certs = True
 g_driver = webdriver.Firefox(firefox_profile=g_profile)
 # Dummy admin account for testing
-g_admin_username = "test_admin"
-g_admin_password = "5v1dbq7wwu"
+g_admin_username = os.getenv('TEST_ADMIN_USERNAME')
+g_admin_password = os.getenv('TEST_ADMIN_PASSWORD')
 
 def new_random_string(length=10):
     alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
@@ -24,10 +24,10 @@ def main():
     global g_summary_details, g_driver
     # Test #1: Confirm we are on the log_in page before continuing
     g_driver.get('https://u1910-dev:5000/')
-    compare(g_driver.title, "Log In", "Reached /log_in route")
+    test_strings(g_driver.title, "Log In", "Reached /log_in route")
     # Test #2: Go to sign_up page
     g_driver.find_element_by_id("sign_up_link").click()
-    compare(g_driver.title, "Sign Up", "Reached /sign_up route")
+    test_strings(g_driver.title, "Sign Up", "Reached /sign_up route")
     # Generate new random test user info
     print("\nGenerating Random User Info...")
     username = new_random_string()
@@ -41,21 +41,21 @@ def main():
     g_driver.find_element_by_id("confirm_password_input").send_keys(password)
     g_driver.find_element_by_id("agree_to_terms_input").click()
     g_driver.find_element_by_id("submit_button").click()
-    compare(g_driver.title, "Dashboard", "Created a new user and was auto logged in")
+    test_strings(g_driver.title, "Dashboard", "Created a new user and was auto logged in")
     # Test #4: Log out
     g_driver.find_element_by_id("log_out_link").click()
-    compare(g_driver.title, "Log In", "Logged out and auto returned to the log_in page")
+    test_strings(g_driver.title, "Log In", "Logged out and auto returned to the log_in page")
     # Test #5: Log in as test user
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
-    compare(g_driver.title, "Dashboard", "Logged in to an existing user")
+    test_strings(g_driver.title, "Dashboard", "Logged in to an existing user")
     # Test #6: Go to profile page
     g_driver.find_element_by_id("profile_link").click()
-    compare(g_driver.title, "Profile", "Reached /profile route")
+    test_strings(g_driver.title, "Profile", "Reached /profile route")
     # Test #7: Go to change_password page
     g_driver.find_element_by_id("change_password_link").click()
-    compare(g_driver.title, "Change Password", "Reached /change_password route")
+    test_strings(g_driver.title, "Change Password", "Reached /change_password route")
     # Test #8: Change password
     g_driver.find_element_by_id("old_password_input").send_keys(password)
     old_password = password
@@ -63,34 +63,65 @@ def main():
     g_driver.find_element_by_id("new_password_input").send_keys(password)
     g_driver.find_element_by_id("confirm_new_password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
-    compare(g_driver.title, "Profile", "Changed password and auto returned to profile")
+    test_strings(g_driver.title, "Profile", "Changed password and auto returned to profile")
     # Test #9: Log out and attempt to log back in with old password
     g_driver.find_element_by_id("log_out_link").click()
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(old_password)
     g_driver.find_element_by_id("submit_button").click()
-    compare(g_driver.title, "Log In", "Not allowed to log back in with old password")
+    test_strings(g_driver.title, "Log In", "Not allowed to log back in with old password")
     # Test #10: Log in with new password
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
-    compare(g_driver.title, "Dashboard", "Logged in with new password")
-    # Test #11: Submit network request
+    test_strings(g_driver.title, "Dashboard", "Logged in with new password")
+    # Test #11-12: Submit network request
     g_driver.find_element_by_id("network_request_input").click()
     g_driver.find_element_by_id("submit_button").click()
     g_driver.find_element_by_id("log_out_link").click()
     g_driver.find_element_by_id("username_input").send_keys(g_admin_username)
     g_driver.find_element_by_id("password_input").send_keys(g_admin_password)
     g_driver.find_element_by_id("submit_button").click()
+    request_usernames = g_driver.find_elements_by_name("request_username")
+    request_approval_boxes = g_driver.find_elements_by_name("approve")
+    i = 0
+    for e in request_usernames:
+        if e.text == username:
+            request_approval_boxes[i].click()
+            break
+        else:
+            i += 1
+    test_bools(request_approval_boxes[i].is_selected(), False, "Submitted test network request")
+    g_driver.find_element_by_id("submit_button").click()
+    request_usernames = g_driver.find_elements_by_name("request_username")
+    request_approval_boxes = g_driver.find_elements_by_name("approve")
+    test_bools(request_approval_boxes[i].is_selected(), True, "Logged in as admin and approved test network request")
+    g_driver.find_element_by_id("log_out_link").click()
     # Clean up
     g_driver.close()
     print_summary()
     exit(0)
 
-def compare(found, expected, test_details):
+def test_strings(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
     g_tests_ran += 1
     print("\nTest #" + str(g_tests_ran) + "\nText Found:\t" + found + "\nText Expected:\t" + expected)
+    if found == expected:
+        g_passed_tests += 1
+        g_summary_details.append([1, test_details])
+        print("[" + u'\u2713' + "] " + test_details)
+    else:
+        g_failed_tests += 1
+        g_summary_details.append([0, test_details])
+        print("[" + u'\u2718' + "] " + test_details + "\n\nStopping Execution of Further tests")
+        g_driver.close()
+        print_summary()
+        exit(1)
+
+def test_bools(found, expected, test_details):
+    global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
+    g_tests_ran += 1
+    print("\nTest #" + str(g_tests_ran) + "\nBool Found:\t" + str(found) + "\nBool Expected:\t" + str(expected))
     if found == expected:
         g_passed_tests += 1
         g_summary_details.append([1, test_details])
