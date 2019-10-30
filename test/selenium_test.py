@@ -3,7 +3,7 @@ import random
 from selenium import webdriver
 
 # Global variable initialization
-g_total_tests = 5
+g_total_tests = 12
 g_tests_ran = 0
 g_passed_tests = 0
 g_failed_tests = 0
@@ -83,27 +83,33 @@ def main():
     g_driver.find_element_by_id("password_input").send_keys(g_admin_password)
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
-    request_approval_boxes = g_driver.find_elements_by_name("approved")
-    print(request_approval_boxes)
+    #request_approval_boxes = g_driver.find_elements_by_name("approved")
+    request_approval_boxes = g_driver.find_elements_by_css_selector("input[type='checkbox']")
     i = 0
     for e in request_usernames:
-        print(e.text + " =? " + username)
         if e.text == username:
-            print("found at: " + str(i))
+            test_bools(request_approval_boxes[i].is_selected(), False, "Submitted test network request")
             request_approval_boxes[i].click()
             break
         else:
             i += 1
-    test_bools(request_approval_boxes[i].is_selected(), False, "Submitted test network request")
     g_driver.find_element_by_id("submit_button").click()
     request_usernames = g_driver.find_elements_by_name("request_username")
     request_approval_boxes = g_driver.find_elements_by_name("approved")
+    j = 0
+    for e in request_usernames:
+        print("j = " + str(j) + " | " + e.text + " | " + str(request_approval_boxes[i].is_selected()))
+        if e.text == username:
+            break
+        else:
+            j += 1
+    print("j = " + str(j))
     test_bools(request_approval_boxes[i].is_selected(), True, "Logged in as admin and approved test network request")
-    g_driver.find_element_by_id("log_out_link").click()
+    #g_driver.find_element_by_id("log_out_link").click()
     # Clean up
-    g_driver.close()
+    #g_driver.close()
     print_summary()
-    exit(0)
+    #exit(0)
 
 def test_strings(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
@@ -117,9 +123,9 @@ def test_strings(found, expected, test_details):
         g_failed_tests += 1
         g_summary_details.append([0, test_details])
         print("[" + u'\u2718' + "] " + test_details + "\n\nStopping Execution of Further tests")
-        g_driver.close()
+        #g_driver.close()
         print_summary()
-        exit(1)
+        #exit(1)
 
 def test_bools(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
@@ -133,9 +139,9 @@ def test_bools(found, expected, test_details):
         g_failed_tests += 1
         g_summary_details.append([0, test_details])
         print("[" + u'\u2718' + "] " + test_details + "\n\nStopping Execution of Further tests")
-        g_driver.close()
+        #g_driver.close()
         print_summary()
-        exit(1)
+        #exit(1)
 
 def print_summary():
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details
