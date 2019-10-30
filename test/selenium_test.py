@@ -3,7 +3,7 @@ import random
 from selenium import webdriver
 
 # Global variable initialization
-g_total_tests = 12
+g_total_tests = 14
 g_tests_ran = 0
 g_passed_tests = 0
 g_failed_tests = 0
