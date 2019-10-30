@@ -144,7 +144,12 @@ def create_app(test_config=None):
             response = make_response(redirect('/'))
             return response
         cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM users WHERE username=%s", [request.cookies.get('username')])
+        cur.execute("SELECT * FROM users WHERE username=%s", [request.cookies.get('username')])
+        mysql.connection.commit()
+        user = cur.fetchall()[0]
+        cur.execute("DELETE FROM users WHERE id=%s", [user[0]])
+        mysql.connection.commit()
+        cur.execute("DELETE FROM requests WHERE user_id=%s", [user[0]])
         mysql.connection.commit()
         cur.close()
         response = make_response(redirect('/dashboard'))
