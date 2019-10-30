@@ -49,6 +49,7 @@ def create_app(test_config=None):
             if user[4]==True:
                 i = 0
                 for approval in approved_list:
+                    print(approval)
                     if approval == 'on':
                         cur.execute("UPDATE requests SET approved='1' where id=%s AND approved='0'", [requests[i][0]])
                         mysql.connection.commit()
