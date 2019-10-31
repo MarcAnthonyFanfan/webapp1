@@ -11,10 +11,10 @@ g_failed_tests = 0
 g_summary_details = []
 # Global profile/driver setup for Chrome
 chrome_options = Options()
-#chrome_options.add_argument('--headless')
+chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
-g_driver = webdriver.Chrome(chrome_options=chrome_options)
+g_driver = webdriver.Chrome(options=chrome_options)
 """# Global profile/driver setup for Firefox
 g_profile = webdriver.FirefoxProfile()
 g_profile.accept_untrusted_certs = True
