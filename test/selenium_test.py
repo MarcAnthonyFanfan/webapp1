@@ -1,6 +1,7 @@
 import os
 import random
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 # Global variable initialization
 g_total_tests = 14
@@ -8,10 +9,17 @@ g_tests_ran = 0
 g_passed_tests = 0
 g_failed_tests = 0
 g_summary_details = []
-# Global profile/driver setup for Firefox
+# Global profile/driver setup for Chrome
+chrome_options = Options()
+#chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+g_driver = webdriver.Chrome(chrome_options=chrome_options)
+"""# Global profile/driver setup for Firefox
 g_profile = webdriver.FirefoxProfile()
 g_profile.accept_untrusted_certs = True
 g_driver = webdriver.Firefox(firefox_profile=g_profile)
+"""
 # Dummy admin account for testing
 g_admin_username = os.getenv('TEST_ADMIN_USERNAME')
 g_admin_password = os.getenv('TEST_ADMIN_PASSWORD')
