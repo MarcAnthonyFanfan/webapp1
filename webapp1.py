@@ -44,12 +44,10 @@ def create_app(test_config=None):
             return render_template('dashboard.html', user=user, requests=requests)
         else:
             details = request.form
-            print(details, file=sys.stderr)
             approved_list = request.form.getlist("approved")
             if user[4]==True:
                 i = 0
                 for approval in approved_list:
-                    print(approval, file=sys.stderr)
                     if approval == '1':
                         cur.execute("UPDATE requests SET approved='1' where id=%s AND approved='0'", [requests[i][0]])
                         mysql.connection.commit()
