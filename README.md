@@ -17,3 +17,4 @@ Build simple web application that performs the following (all user data will be 
 4. Create a password protected page that allows a user to request a network account, the request should be visible to an administrator when they login to the web application
 
 ![Lab Environment Diagram](lab_environment.png)
+![Application Process Diagram](application_process.png)
