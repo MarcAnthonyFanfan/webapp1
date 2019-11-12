@@ -12,7 +12,7 @@
       state: started
       enabled: true
   
-  - name: Pull latest db_setup.sql and db_reset.sh files from GitHub
+  - name: Pull db_setup.sql and db_reset.sh files from GitHub
     command: warn=False curl -OO https://raw.githubusercontent.com/MarcAnthonyFanfan/webapp1/master/{db_setup.sql,db_reset.sh}
 
   - name: Build Docker image
