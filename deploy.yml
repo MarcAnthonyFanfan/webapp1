@@ -23,7 +23,7 @@
       path: "/home/mfanx2/db_reset.sh"
     
   - name: Pull db_setup.sql and db_reset.sh files from GitHub
-    command: warn=False curl -OO https://raw.githubusercontent.com/MarcAnthonyFanfan/webapp1/master/{db_setup.sql,db_reset.sh}
+    command: warn=False curl -H "Cache-Control{{':'}} no-cache" -OO https://raw.githubusercontent.com/MarcAnthonyFanfan/webapp1/master/{db_setup.sql,db_reset.sh}
 
   - name: Make db_reset.sh executable
     command: warn=False chmod +x db_reset.sh
