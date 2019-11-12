@@ -1,9 +1,13 @@
 [all]
 u1910-dev     ansible_host=u1910-dev
+u1910-stage   ansible_host=192.168.1.157
 u1910-prod    ansible_host=u1910-prod
 
 [dev]
 u1910-dev
+
+[stage]
+u1910-stage
 
 [prod]
 u1910-prod

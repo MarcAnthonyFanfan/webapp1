@@ -1,5 +1,5 @@
 ---
-- hosts: prod
+- hosts: '{{ target }}'
   become: yes
   tasks:
 
@@ -17,6 +17,12 @@
     register: build_result
     changed_when: False
     failed_when: "'Successfully tagged flaskapp:latest' not in build_result.stdout"
+
+  - name: Pull db_setup.sql file from GitHub
+    command: wget https://raw.githubusercontent.com/MarcAnthonyFanfan/webapp1/master/db_setup.sql
+
+  - name: Create db & tables if they do not exist
+    command: mysql < db_setup.sql
   
   - name: Stop webapp1 Docker container if already running
     command: docker stop webapp1
