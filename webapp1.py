@@ -23,6 +23,10 @@ def create_app(test_config=None):
         else:
             response = make_response(redirect('/log_in'))
         return response
+    
+    @app.route('/hello', methods=['GET'])
+    def hello():
+        return "Hello"
 
     @app.route('/dashboard', methods=['GET', 'POST'])
     def dashboard():
