@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "This Script will guide you through making a new webapp1 flask server\nNOTE: It is important that you only run this script once\n\n"
+printf "This Script will guide you through making a new webapp1 flask server\n\n"
 read -p "Are you sure you want to continue? <y/N> " prompt
 if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
 then
@@ -16,13 +16,14 @@ then
     ssh mfanx2@$ip_address mkdir -p ~/certs
     printf "\nCopying certificate files to ~/certs/\n"
     scp ~/certs/*.pem mfanx2@$ip_address:~/certs/
-    printf "\nStopping any running webapp1 docker container\n"
-    ssh mfanx2@$ip_address sudo docker stop webapp1
     printf "\nListing all docker containers\n"
     ssh mfanx2@$ip_address sudo docker ps -a
-    printf "\nPruning docker images and containers\n"
-    ssh mfanx2@$ip_address sudo docker image prune -f
-    ssh mfanx2@$ip_address sudo docker system prune -f
+    printf "\nRunning Ansible Playbook\n"
+    ansible-playbook --extra-vars "target=$ip_address ansible_user=mfanx2 ansible_python_interpreter=/usr/bin/python3" -i $ip_address, deploy.yml
+    printf "\nListing all docker containers again\n"
+    ssh mfanx2@$ip_address sudo docker ps -a
+    printf "\nInitializing Database\n"
+    ssh mfanx2@$ip_address "echo y | ./db_reset.sh"
     printf "\nSuccessfully executed script new_server_wizard.sh\n"
     exit 0
 else
