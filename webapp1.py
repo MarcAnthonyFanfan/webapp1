@@ -223,7 +223,7 @@ def create_app(test_config=None):
             return response
     
     def new_random_password(length=10):
-        alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()<>?'
         return ''.join((random.choice(alphabet) for i in range(length)))
 
     return app
