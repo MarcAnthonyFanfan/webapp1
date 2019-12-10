@@ -4,23 +4,19 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-win_ff_driver = webdriver.Remote(
+win_chrome_driver = webdriver.Remote(
    command_executor = "http://192.168.1.167:4444/wd/hub",
    desired_capabilities = {
-        "browserName": "firefox",
-        "platform": "Windows",
-        "acceptSslCerts": "true",
-        "acceptInsecureCerts": "true"
+        "browserName": "chrome",
+        "platform": "Windows"
     }
 )
 
-lin_ff_driver = webdriver.Remote(
+lin_chrome_driver = webdriver.Remote(
    command_executor = "http://192.168.1.167:4444/wd/hub",
    desired_capabilities = {
-        "browserName": "firefox",
-        "platform": "Linux",
-        "acceptSslCerts": "true",
-        "acceptInsecureCerts": "true"
+        "browserName": "chrome",
+        "platform": "Linux"
     }
 )
 
@@ -178,7 +174,7 @@ def print_summary():
     
 
 if __name__ == "__main__":
-    g_driver = lin_ff_driver
+    g_driver = lin_chrome_driver
     main()
-    g_driver = win_ff_driver
+    g_driver = win_chrome_driver
     main()
