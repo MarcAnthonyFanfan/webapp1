@@ -2,6 +2,23 @@ import os
 import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+win_ff_driver = webdriver.Remote(
+   command_executor = "http://192.168.1.167:4444/wd/hub",
+   desired_capabilities = {
+        "browserName": "firefox",
+        "platform": "Windows"
+    }
+)
+
+lin_ff_driver = webdriver.Remote(
+   command_executor = "http://192.168.1.167:4444/wd/hub",
+   desired_capabilities = {
+        "browserName": "firefox",
+        "platform": "Linux"
+    }
+)
 
 # Global variable initialization
 g_total_tests = 14
@@ -9,6 +26,7 @@ g_tests_ran = 0
 g_passed_tests = 0
 g_failed_tests = 0
 g_summary_details = []
+g_driver = None
 
 """# Global profile/driver setup for Chrome
 chrome_options = Options()
@@ -19,10 +37,10 @@ g_driver = webdriver.Chrome(options=chrome_options)
 """
 
 """# Global profile/driver setup for Firefox
-"""
 g_profile = webdriver.FirefoxProfile()
 g_profile.accept_untrusted_certs = True
 g_driver = webdriver.Firefox(firefox_profile=g_profile)
+"""
 
 # Dummy admin account for testing
 g_admin_username = os.getenv('TEST_ADMIN_USERNAME')
@@ -156,4 +174,7 @@ def print_summary():
     
 
 if __name__ == "__main__":
+    g_driver = lin_ff_driver
+    main()
+    g_driver = win_ff_driver
     main()
