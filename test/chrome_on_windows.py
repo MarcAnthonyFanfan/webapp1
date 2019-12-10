@@ -168,4 +168,6 @@ if __name__ == "__main__":
     try:
         main()
     except: # catch *all* exceptions
+        e = sys.exc_info()[0]
+        write_to_page( "<p>Error: %s</p>" % e )
         g_driver.close()
