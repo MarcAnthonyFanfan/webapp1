@@ -166,4 +166,7 @@ def print_summary():
     
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except: # catch *all* exceptions
+        g_driver.close()
