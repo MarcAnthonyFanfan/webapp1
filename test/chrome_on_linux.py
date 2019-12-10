@@ -4,15 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-win_chrome_driver = webdriver.Remote(
-   command_executor = "http://192.168.1.167:4444/wd/hub",
-   desired_capabilities = {
-        "browserName": "chrome",
-        "platform": "Windows"
-    }
-)
-
-lin_chrome_driver = webdriver.Remote(
+# Selenium Grid - Test Chrome on Linux
+g_driver = webdriver.Remote(
    command_executor = "http://192.168.1.167:4444/wd/hub",
    desired_capabilities = {
         "browserName": "chrome",
@@ -26,7 +19,6 @@ g_tests_ran = 0
 g_passed_tests = 0
 g_failed_tests = 0
 g_summary_details = []
-g_driver = None
 
 """# Global profile/driver setup for Chrome
 chrome_options = Options()
@@ -174,7 +166,4 @@ def print_summary():
     
 
 if __name__ == "__main__":
-    g_driver = lin_chrome_driver
-    main()
-    g_driver = win_chrome_driver
     main()
