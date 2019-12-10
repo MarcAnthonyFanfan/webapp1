@@ -136,7 +136,6 @@ def main():
     test_comparison(g_driver.title, "Log In", "Deleted test account " + username)
     g_driver.close()
     print_summary()
-    exit(0)
 
 def test_comparison(found, expected, test_details):
     global g_tests_ran, g_passed_tests, g_failed_tests, g_summary_details, g_driver
