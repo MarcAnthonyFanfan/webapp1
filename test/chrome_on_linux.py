@@ -1,4 +1,5 @@
 import os
+import time
 import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -46,9 +47,11 @@ def main():
     global g_summary_details, g_driver
     # Test #1: Confirm we are on the log_in page before continuing
     g_driver.get('https://u1910-dev:5000/')
+    time.sleep(1)
     test_comparison(g_driver.title, "Log In", "Reached /log_in route")
     # Test #2: Go to sign_up page
     g_driver.find_element_by_id("sign_up_link").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Sign Up", "Reached /sign_up route")
     # Generate new random test user info
     print("\nGenerating Random User Info...")
@@ -63,20 +66,25 @@ def main():
     g_driver.find_element_by_id("confirm_password_input").send_keys(password)
     g_driver.find_element_by_id("agree_to_terms_input").click()
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Dashboard", "Created new user " + username + " and was auto logged in")
     # Test #4: Log out
     g_driver.find_element_by_id("log_out_link").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Log In", "Logged out and was auto returned to the log_in page")
     # Test #5: Log in as test user
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Dashboard", "Logged in to existing user " + username)
     # Test #6: Go to profile page
     g_driver.find_element_by_id("profile_link").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Profile", "Reached /profile route")
     # Test #7: Go to change_password page
     g_driver.find_element_by_id("change_password_link").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Change Password", "Reached /change_password route")
     # Test #8: Change password
     g_driver.find_element_by_id("old_password_input").send_keys(password)
@@ -85,25 +93,31 @@ def main():
     g_driver.find_element_by_id("new_password_input").send_keys(password)
     g_driver.find_element_by_id("confirm_new_password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Profile", "Changed password and auto returned to profile")
     # Test #9: Log out and attempt to log back in with old password
     g_driver.find_element_by_id("log_out_link").click()
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(old_password)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Log In", "Not allowed to log back in with old password")
     # Test #10: Log in with new password
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Dashboard", "Logged in with new password")
     # Test #11-12: Submit network request
     g_driver.find_element_by_id("network_request_input").click()
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     g_driver.find_element_by_id("log_out_link").click()
+    time.sleep(1)
     g_driver.find_element_by_id("username_input").send_keys(g_admin_username)
     g_driver.find_element_by_id("password_input").send_keys(g_admin_password)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     request_usernames = g_driver.find_elements_by_name("request_username")
     request_approval_boxes = g_driver.find_elements_by_css_selector("input[type='checkbox']")
     i = 0
@@ -115,24 +129,32 @@ def main():
         else:
             i += 1
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     request_usernames = g_driver.find_elements_by_name("request_username")
     request_approval_boxes = g_driver.find_elements_by_name("approved")
+    time.sleep(1)
     test_comparison(request_approval_boxes[i].is_selected(), True, "Logged in as test_admin and approved test network request")
     g_driver.find_element_by_id("log_out_link").click()
+    time.sleep(1)
     # Test #13: Reset password
     g_driver.find_element_by_id("reset_password_link").click()
+    time.sleep(1)
     g_driver.find_element_by_id("email_input").send_keys(email)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     old_password = password
     password = g_driver.find_element_by_id("new_password").text
     g_driver.find_element_by_id("log_in_link").click()
+    time.sleep(1)
     g_driver.find_element_by_id("username_input").send_keys(username)
     g_driver.find_element_by_id("password_input").send_keys(password)
     g_driver.find_element_by_id("submit_button").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Dashboard", "Reset password of " + username + " and logged in")
     # Test #14: Delete account and clean up
     g_driver.find_element_by_id("profile_link").click()
     g_driver.find_element_by_id("delete_account_link").click()
+    time.sleep(1)
     test_comparison(g_driver.title, "Log In", "Deleted test account " + username)
     g_driver.close()
     print_summary()
