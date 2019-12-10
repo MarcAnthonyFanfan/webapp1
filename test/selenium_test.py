@@ -4,20 +4,20 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+profile = webdriver.FirefoxProfile()
+profile.accept_untrusted_certs = True
+executor = "http://192.168.1.167:4444/wd/hub"
+win_capabilities =  = {"browserName": "firefox","platform": "Windows"}
 win_ff_driver = webdriver.Remote(
-   command_executor = "http://192.168.1.167:4444/wd/hub",
-   desired_capabilities = {
-        "browserName": "firefox",
-        "platform": "Windows"
-    }
+    browser_profile=profile,
+    desired_capabilities=win_capabilities,
+    command_executor=executor
 )
-
+lin_capabilities =  = {"browserName": "firefox","platform": "Linux"}
 lin_ff_driver = webdriver.Remote(
-   command_executor = "http://192.168.1.167:4444/wd/hub",
-   desired_capabilities = {
-        "browserName": "firefox",
-        "platform": "Linux"
-    }
+    browser_profile=profile,
+    desired_capabilities=lin_capabilities,
+    command_executor=executor
 )
 
 # Global variable initialization
