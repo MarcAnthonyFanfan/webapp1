@@ -7,13 +7,13 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 profile = webdriver.FirefoxProfile()
 profile.accept_untrusted_certs = True
 executor = "http://192.168.1.167:4444/wd/hub"
-win_capabilities =  = {"browserName": "firefox","platform": "Windows"}
+win_capabilities = {"browserName": "firefox","platform": "Windows"}
 win_ff_driver = webdriver.Remote(
     browser_profile=profile,
     desired_capabilities=win_capabilities,
     command_executor=executor
 )
-lin_capabilities =  = {"browserName": "firefox","platform": "Linux"}
+lin_capabilities = {"browserName": "firefox","platform": "Linux"}
 lin_ff_driver = webdriver.Remote(
     browser_profile=profile,
     desired_capabilities=lin_capabilities,
