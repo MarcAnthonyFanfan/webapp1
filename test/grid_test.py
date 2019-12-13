@@ -13,7 +13,6 @@ if os.environ.get('GRID_BROWSER') is None or os.environ.get('GRID_PLATFORM') is 
 
 g_profile = webdriver.FirefoxProfile()
 g_profile.accept_untrusted_certs = True
-g_driver = webdriver.Firefox(firefox_profile=g_profile)
 
 # Selenium Grid - Get Remote Driver
 g_driver = webdriver.Remote(
