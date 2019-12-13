@@ -15,8 +15,8 @@ if os.environ.get('GRID_BROWSER') is None or os.environ.get('GRID_PLATFORM') is 
 g_driver = webdriver.Remote(
    command_executor = "http://192.168.1.167:4444/wd/hub",
    desired_capabilities = {
-        "browserName": os.environ.get('GRID_BROWSER'),
-        "platform": os.environ.get('GRID_PLATFORM')
+        "browserName": os.environ.get("GRID_BROWSER"),
+        "platform": os.environ.get("GRID_PLATFORM")
     }
 )
 
@@ -53,6 +53,8 @@ def main():
     global g_summary_details, g_driver
     # Test #1: Confirm we are on the log_in page before continuing
     g_driver.get('https://u1910-dev:5000/')
+    if os.environ.get("GRID_BROWSER") == "internet explorer":
+        g_driver.get("javascript:document.getElementById('overridelink').click();")
     time.sleep(1)
     test_comparison(g_driver.title, "Log In", "Reached /log_in route")
     # Test #2: Go to sign_up page
