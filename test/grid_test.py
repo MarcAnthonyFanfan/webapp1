@@ -11,12 +11,12 @@ if os.environ.get('GRID_BROWSER') is None or os.environ.get('GRID_PLATFORM') is 
 	print("Canceling Selenium Grid tests...")
 	sys.exit(1)
 
-g_profile = webdriver.FirefoxProfile()
-g_profile.accept_untrusted_certs = True
+g_options = Options()
+g_options.AcceptInsecureCertificates = True
 
 # Selenium Grid - Get Remote Driver
 g_driver = webdriver.Remote(
-    browser_profile=g_profile,
+    options=g_options,
     command_executor = "http://192.168.1.167:4444/wd/hub",
     desired_capabilities = {
         "browserName": os.environ.get("GRID_BROWSER"),
