@@ -17,7 +17,7 @@ g_driver = webdriver.Firefox(firefox_profile=g_profile)
 
 # Selenium Grid - Get Remote Driver
 g_driver = webdriver.Remote(
-    firefox_profile=g_profile
+    firefox_profile=g_profile,
     command_executor = "http://192.168.1.167:4444/wd/hub",
     desired_capabilities = {
         "browserName": os.environ.get("GRID_BROWSER"),
