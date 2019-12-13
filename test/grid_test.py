@@ -3,7 +3,7 @@ import sys
 import time
 import random
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 if os.environ.get('GRID_BROWSER') is None or os.environ.get('GRID_PLATFORM') is None:
